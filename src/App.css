@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -7,32 +8,150 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+
+
+.header {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 4px solid black;
+  padding-bottom: 10px;
+  background: var(--dswdws, linear-gradient(267deg, #DEDEDE 11.5%, #FFF 83.26%));
+}
+
+.logo_div {
+  width: 20%;
+}
+
+.logo_div img {
+  width: 80%;
+}
+
+.categories_div {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.categories_div div {
+  width: 12.5%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.categories_div div p {
+  font-size: 22px;
+  font-family: 'Work Sans';
+  font-weight: 600;
 }
+
+.categories_div div p:hover {
+  color : #E10EE5;
+}
+
+
+.accueil {
+  width: 100%;
+  height: 800px;
+}
+
+.image_accueil{
+  width: 100%;
+  height: 800px;
+  background-size: cover;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.image_accueil > h1 {
+  width: 40%;
+  font-size: 46px;
+  font-family: 'DM Serif Text';
+  font-weight: 400;
+}
+
+.footer {
+  width: 100%;
+  margin: auto;
+  background: var(--bacjk, linear-gradient(267deg, rgba(255, 255, 255, 0.50) 11.5%, #DEDEDE 83.26%));
+}
+
+.footer_categories {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.footer_categories > div{
+  width: 25%;
+}
+
+.footer_categories div h5{
+  font-size: 18px;
+  text-align: left;
+  margin-bottom: 1em;
+}
+
+.footer_categories div div {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  text-align: left;
+  
+}
+
+.footer_categories .footer_inscription div {
+  justify-content: center;
+}
+.footer_categories .footer_inscription div p{
+  border-radius: 17px;
+  border: 2px solid #E29BE3;
+  padding: 0.5em 2em;
+}
+
+.footer_categories .footer_inscription div p:hover{
+  color:#ffffff ;
+  background-color: #E29BE3;
+}
+
+.footer_categories .footer_inscription h5 {
+  text-align: center;
+  
+}
+
+.footer_categories .footer_service div p{
+  width: 50%;
+}
+
+hr {
+  width: 75%;
+}
+
+
+
+.footer_logo {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-top: 2em;
+  padding-bottom: 1em;
+}
+
+
+.footer_logo div{
+  width: 50%;
+}
+
+.footer_logo div p{ 
+ display: inline;
+ margin-left: 30px;
+ margin-right: 30px;
+}
+
