@@ -1,19 +1,7 @@
-.App {
-  text-align: center;
-  
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-
-
-
 
 .header {
   width: 100%;
+  text-align: center;
   display: flex;
   flex-wrap: wrap;
   border-bottom: 4px solid black;
@@ -38,17 +26,19 @@
   align-items: center;
 }
 
-.categories_div div {
+.categories_div>div {
   width: 12.5%;
 }
 
-.categories_div div p {
+.categories_div>div>a {
   font-size: 22px;
   font-family: 'Work Sans';
   font-weight: 600;
+  text-decoration: none;
+  color: black;
 }
 
-.categories_div div p:hover {
+.categories_div div a:hover {
   color : #E10EE5;
 }
 
@@ -73,11 +63,14 @@
   font-size: 46px;
   font-family: 'DM Serif Text';
   font-weight: 400;
+  text-align: center;
 }
 
 .footer {
+  
   width: 100%;
   margin: auto;
+  padding-top: 3em;
   background: var(--bacjk, linear-gradient(267deg, rgba(255, 255, 255, 0.50) 11.5%, #DEDEDE 83.26%));
 }
 
@@ -142,6 +135,7 @@ hr {
   flex-direction: row;
   margin-top: 2em;
   padding-bottom: 1em;
+  text-align: center;
 }
 
 

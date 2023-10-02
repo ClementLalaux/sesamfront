@@ -1,0 +1,126 @@
+.administration {
+    width: 80%;
+    margin: auto;
+}
+
+.administration_titre {
+    width: 100%;
+    margin-top: 3em;
+    margin-bottom:8em;
+}
+
+.administration_titre h1 {
+    text-align: center;
+    color: #000;
+    text-align: center;
+    font-family: 'DM Serif Text';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin:1.5em 0;
+}
+
+.administration_sous_titre {
+    text-align: center;
+    margin-bottom: 4em;
+}
+
+.administration_sous_titre>h3 {
+    color: #E29BE3;
+    text-align: center;
+    font-family: 'Work Sans';
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.administration_sous_titre>h2 {
+    color: #000;
+    text-align: center;
+    font-family: 'DM Serif Text';
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.tableau {
+    width: 70%;
+    margin: auto;
+    background: #EEE7EE;
+    padding: 2em;
+    margin-bottom: 5em;
+}
+
+.table {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--Grey_2, #E4E4E4);
+    background-color: white;
+}
+
+.recherche {
+    display: flex;
+    justify-content: end;
+}
+
+.recherche input{
+    border-radius: 10px;
+    border: 1.4px solid #E10EE5;
+    background: none;
+    margin-bottom: 1em ;
+    text-align: left;
+    width: 15%;
+    padding: 0.4em;
+
+}
+tr input {
+    margin-left: 1em;
+}
+
+td input {
+    margin-left: 1em;
+}
+
+
+.pagination {
+    width: 30%;
+    margin: auto;
+}
+
+.adminstration_input {
+    width: 75%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 5em;
+
+}
+
+.adminstration_input div{
+    width: 20%;
+    text-align: center;
+}
+
+.adminstration_input div p{
+    border-radius: 17px;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border: 5px solid #E29BE3;
+    color: #000;
+    font-family: 'Work Sans';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.adminstration_input div p:hover{
+    background-color: #E29BE3;
+    color: white;
+}
+

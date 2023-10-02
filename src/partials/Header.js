@@ -1,5 +1,6 @@
-
+import React from 'react';
 import logo from"../assets/img/logo.png";
+import { Link } from 'react-router-dom'
 
 function Header(){
     return(
@@ -10,13 +11,13 @@ function Header(){
             </div>
             <div className="categories_div">
                 <div className="accueil_div">
-                    <p>ACCUEIL</p>
+                    <Link to="/">ACCUEIL</Link>
                 </div>
                 <div className="nous_div">
                     <p>QUI SOMMES-NOUS ?</p>
                 </div>
                 <div className="prestation_div">
-                    <p>PRESTATIONS</p>
+                    <Link to="/services">SERVICES</Link>
                 </div>
                 <div className="formation_div">
                     <p>FORMATIONS</p>
@@ -28,10 +29,10 @@ function Header(){
                     <p>PARTENAIRES</p>
                 </div>
                 <div className="actualite_div">
-                    <p>ACTUALITÉS</p>
+                <Link to="/actualite">ACTUALITÉ</Link>
                 </div>
                 <div className="contact_div">
-                    <p>CONTACT</p>
+                    <Link to="/contact">CONTACT</Link>
                 </div>
             </div>
         </div>

@@ -1,6 +1,8 @@
 import Footer from "../partials/Footer";
 import Header from "../partials/Header";
 import accueil from "../assets/img/accueil.jpg";
+import React from 'react';
+
 
 function Accueil(){
     return(
