@@ -20,8 +20,8 @@ function Services(){
                     </div>
                 </div>
                 <div className="services_sous_titre">
-                    <h3>Blog</h3>
-                    <h2>Nos derniers articles</h2>
+                    <h3>Nos services</h3>
+                    <h2>Que propose-t-on ?</h2>
                 </div>
             </div>
             <div className="service">

@@ -2,26 +2,54 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './assets/style/index.css';
 import './assets/style/App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Accueil from './pages/Accueil';
 import reportWebVitals from './reportWebVitals';
 import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import Admin from './pages/Admin';
 import Services from './pages/Services';
+import Quisommmesnous from './pages/Quisommesnous';
+import Administratif from './pages/Administratif';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const router = createBrowserRouter([
+  {
+    path : "/",
+    element: <Accueil/>
+  },
+  {
+    path:"/contact",
+    element:<Contact/>
+  },
+  {
+    path:"/actualite",
+    element:<Blog/>
+  },
+  {
+    path:"/admin",
+    element:<Admin/>
+  },
+  {
+    path:"/services",
+    element:<Services/>
+  },{
+    path:"/about-us",
+    element:<Quisommmesnous/>
+  },{
+    path:"/services/administratif",
+    element:<Administratif/>
+  }
+]);
+
+
 root.render(
   <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Accueil />}/>
-        <Route path="/contact" element={<Contact />}/>
-        <Route path='/actualite' element={<Blog/>}/>
-        <Route path='/admin' element={<Admin/>}/>
-        <Route path='/services' element={<Services/>}/>
-      </Routes>
-    </Router>
+    <RouterProvider router={router}>
+      
+    </RouterProvider>
   </React.StrictMode>
 );
 

@@ -14,7 +14,7 @@ function Header(){
                     <Link to="/">ACCUEIL</Link>
                 </div>
                 <div className="nous_div">
-                    <p>QUI SOMMES-NOUS ?</p>
+                    <Link to="/about-us">QUI SOMMES-NOUS ?</Link>
                 </div>
                 <div className="prestation_div">
                     <Link to="/services">SERVICES</Link>
