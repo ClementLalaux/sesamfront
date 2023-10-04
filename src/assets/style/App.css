@@ -24,6 +24,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height:auto;
 }
 
 .categories_div>div {
@@ -40,6 +41,40 @@
 
 .categories_div div a:hover {
   color : #E10EE5;
+}
+
+.dropdown {
+  display: none;
+  position:absolute;
+  border: 1px solid #000;
+  background: #EEE7EE;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 1.5em;
+  text-align: left;
+  margin-left: 2em;
+  
+}
+
+.fleche_colore{
+  fill: #E10EE5;
+  stroke-width: 1px;
+  stroke: #000;
+}
+
+.text_dropdown {
+  font-family: 'Work Sans';
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.text_dropdown:hover {
+  color: #E10EE5;
+}
+
+.fleche_no_colore{
+  fill: #E29BE3;
 }
 
 
@@ -60,7 +95,7 @@
 
 .image_accueil > h1 {
   width: 40%;
-  font-size: 46px;
+  font-size: 66px;
   font-family: 'DM Serif Text';
   font-weight: 400;
   text-align: center;

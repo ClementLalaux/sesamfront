@@ -5,14 +5,17 @@ import React from 'react';
 
 
 function Accueil(){
+
     return(
         <>
+
         <Header/>
         <div className="accueil">
             <div className="image_accueil" style={{backgroundImage:`url(${accueil})`}}>
                 <h1>
-                    Vous souhaitez résoudre vos problèmes de gestion ?
+                    Vous souhaitez résoudre vos<br/> problèmes de gestion ?
                 </h1>
+                
             </div>
         </div>
         <Footer/>

@@ -4,20 +4,53 @@ import '../assets/style/quisommesnous.css';
 import portrait from '../assets/img/portrait.jpg';
 import service from '../assets/img/service.png';
 import Partenaires from "../partials/Partenaires";
+import { useState } from "react";
+import { createPortal } from "react-dom";
+import Connexion from "../shared/Connexion";
+import Inscription from "../shared/Inscription";
 
 function Quisommmesnous(){
+
+    const [signFormMode, setSignFormMode] = useState("");
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
+
+    const onSigningHandler = async () => {
+        setSignFormMode("inscription");
+    };
+
+    const onLoginHandler = async () => {
+     setLoginModalOpen(true); 
+    }
+
+    const closeModal = () => {
+        setLoginModalOpen(false); // Fermer la modal de connexion
+      };
+    
+      // Gestionnaire d'événements pour détecter les clics en dehors de la modal
+      const handleOutsideClick = (event) => {
+        if (loginModalOpen && event.target.id === "modal-root") {
+          closeModal();
+        }
+      };
+
+    
+
     return(
     <>
+    <div onClick={handleOutsideClick}>
+    {signFormMode && createPortal(<Inscription onClose={() => setSignFormMode("")} title="Inscription"></Inscription>, document.getElementById("modal-root"))}
+
+{loginModalOpen && createPortal(<Connexion onClose={() => setLoginModalOpen(false)} title="Connexion"></Connexion>, document.getElementById("modal-root"))}
     <Header/>
     <div className="quisommesnous">
         <div className="quisommesnous_titre">
             <h1>Vous souhaitez résoudre vos<br/> problèmes de gestion ?</h1>
             <div className="quisommesnous_connexion">
                 <div>
-                    <p>Inscription</p>
+                    <p onClick={onLoginHandler}>Connexion</p>
                 </div>
                 <div>
-                    <p>Connexion</p>
+                    <p onClick={onSigningHandler}>Inscription</p>
                 </div>
             </div>
         </div>
@@ -128,6 +161,7 @@ function Quisommmesnous(){
     </div>
     <Partenaires/>
     <Footer/>
+    </div>
     </>
     )
 }
