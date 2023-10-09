@@ -2,6 +2,7 @@ import Footer from "../partials/Footer";
 import Header from "../partials/Header";
 import '../assets/style/services.css';
 import article from "../assets/img/article1.jpg";
+import SousTitre from "../partials/SousTitre";
 
 function Services(){
     return(
@@ -19,10 +20,7 @@ function Services(){
                         </div>
                     </div>
                 </div>
-                <div className="services_sous_titre">
-                    <h3>Nos services</h3>
-                    <h2>Que propose-t-on ?</h2>
-                </div>
+                <SousTitre titre="Nos services" texte="Que propose-t-on ?"/>
             </div>
             <div className="service">
                 <h3>Adm<span className="souligne">inistr</span>atif</h3>

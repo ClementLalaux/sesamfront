@@ -3,7 +3,7 @@ import btc from '../assets/img/btc.png';
 import lapin from '../assets/img/lapin.png';
 import fox from '../assets/img/fox.png';
 import trust from '../assets/img/trust.png';
-import '../assets/style/partenaires.css';
+import '../assets/style/partials/partenaires.css';
 
 function Partenaires(){
     return(

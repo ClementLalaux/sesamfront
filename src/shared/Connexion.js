@@ -1,9 +1,10 @@
 import "../assets/style/connexion.css";
+import React from "react";
 
 function Connexion(props){
     const backgroundClickHandler = (event) => {
         if (event.currentTarget === event.target) {
-          props.onClose(); // Correction : retirer les parenthèses
+          props.onClose(); 
         }
       }
       

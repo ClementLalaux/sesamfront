@@ -1,6 +1,9 @@
 import React from 'react';
 
-function Footer(){
+function Footer(props){
+
+    console.log(props);
+
     return(
         <>
             <div className="footer">
@@ -43,10 +46,10 @@ function Footer(){
                     </div>
                     <div className="footer_inscription">
                         <h5>
-                            Vous souhaitez vous inscrire ?
+                            Vous souhaitez vous connecter ?
                         </h5>
                         <div>
-                            <p>Inscription</p>
+                            <p onClick={props.test}>Connexion</p>
                         </div>
                     </div>
                 </div>
