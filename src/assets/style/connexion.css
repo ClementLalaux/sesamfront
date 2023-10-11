@@ -16,7 +16,7 @@
     border-radius: 50px;
     border: 1px solid #000;
     background: var(--Gradient-Nav, #DEDEDE);
-    top: 15%;
+    top: 10%;
     left: 40%;
     border: 1px solid #E10EE5;
     box-shadow: 10px 10px 4px 0px rgba(0, 0, 0, 0.25);
@@ -106,5 +106,5 @@
     width: 90%;
     background: #FFF;
 
-    margin-bottom: 20em;
+    margin-bottom: 15em;
 }

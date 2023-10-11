@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import './assets/style/index.css';
 import './assets/style/App.css';
 import { BrowserRouter as Router, Routes, Route, createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Accueil from './pages/Accueil';
 import reportWebVitals from './reportWebVitals';
 import Contact from './pages/Contact';
 import Blog from './pages/Blog';
@@ -11,6 +10,7 @@ import Admin from './pages/Admin';
 import Services from './pages/Services';
 import Quisommmesnous from './pages/Quisommesnous';
 import Administratif from './pages/Administratif';
+import Home from './pages/Home';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,7 +18,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
   {
     path : "/",
-    element: <Accueil/>
+    element: <Home/>
   },
   {
     path:"/contact",

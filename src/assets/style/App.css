@@ -69,8 +69,13 @@
   line-height: normal;
 }
 
-.text_dropdown:hover {
+.text_dropdown>a:hover {
   color: #E10EE5;
+}
+
+.text_dropdown>a {
+  text-decoration: none;
+  color: black;
 }
 
 .fleche_no_colore{
