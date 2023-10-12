@@ -65,13 +65,13 @@ function Header(){
                     </div>
                 </div>
                 <div className="formation_div">
-                    <p>FORMATIONS</p>
+                    <Link to="/formation">FORMATIONS</Link>
                 </div>
                 <div className="jury_div">
                     <p>JURY</p>
                 </div>
                 <div className="partenaire_div">
-                    <p>PARTENAIRES</p>
+                    <Link to="/partenaires">PARTENAIRES</Link>
                 </div>
                 <div className="actualite_div">
                 <Link to="/actualite">ACTUALITÉ</Link>

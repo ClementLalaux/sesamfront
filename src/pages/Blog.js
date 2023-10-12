@@ -13,7 +13,7 @@ function Blog(){
         <>
         <Header/>
             <div className="blog">
-            <Modal/>
+            <Modal titre="Voici les derniers articles parus ! "/>
                 <SousTitre titre="Blog" texte="Nos derniers articles"/>
                 <Article image={article}/>
             </div>

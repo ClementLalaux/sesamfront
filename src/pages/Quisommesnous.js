@@ -20,7 +20,7 @@ function Quisommmesnous(){
 
     <Header/>
     <div className="quisommesnous">
-        <Modal/>
+        <Modal titre="Vous souhaitez résoudre vos problèmes de gestion ?"/>
         <SousTitre titre="Notre histoire" texte="Qui sommes-nous ?"/>
 
         <div className="quisommesnous_description">
@@ -32,8 +32,44 @@ function Quisommmesnous(){
             </div>
             <div className="quisommesnous_text">
                 <div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto officiis exercitationem, necessitatibus pariatur dolorem alias ratione rerum ad veritatis, velit voluptatum laudantium commodi assumenda voluptates quas obcaecati natus quos eligendi?</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex suscipit sequi odit cumque iure blanditiis, voluptatum est asperiores, repellat, cupiditate culpa. Exercitationem porro, fuga laboriosam aspernatur animi similique ullam eligendi.</p>
+                    <div>
+                        <h4>
+                            Notre expérience
+                        </h4>
+                    </div>
+                    <h5>Entreprise individuelle créée en 2023</h5>
+                        <ul>
+                            <li>
+                                Direction : Nadège CARLIER
+                            </li>
+                            <li>
+                                Chevalier et Officier de l'Ordre des Palmes Académiques
+                            </li>
+                            <li>
+                                Chevalier et Officier de l'Ordre des Palmes Académiques
+                            </li>
+                        </ul>
+                        <h5>26 ans d'expérience:</h5>
+                        <ul>
+                            <li>
+                                Secrétaire administrative 
+                            </li>
+                            <li>
+                                Gestionnaire administrative et comptable
+                            </li>
+                            <li>
+                                Gestionnaire administrative et comptable d'établissement scolaire
+                            </li>
+                            <li>
+                                Responsable ressources humaines
+                            </li>
+                            <li>
+                                Management et recrutement d'équipes
+                            </li>
+                            <li>
+                                Gestion des conflits 
+                            </li>
+                        </ul>
                 </div>
                 
             </div>
@@ -51,7 +87,7 @@ function Quisommmesnous(){
                     <img src={service}/>
                 </div>
                 <div className="quisommesnous_service_text">
-                    <h5>Gérer votre <span>administratif</span></h5>
+                    <h5>Dans nos <span>bureaux</span></h5>
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident, unde corrupti veniam dolorem nisi sunt sequi necessitatibus error rem cupiditate inventore dolore beatae perspiciatis deserunt quos temporibus accusantium dignissimos ipsa.</p>
                 </div>
             </div>
@@ -60,7 +96,7 @@ function Quisommmesnous(){
                     <img src={service}/>
                 </div>
                 <div className="quisommesnous_service_text">
-                    <h5>De l'aide dans le <span>management</span></h5>
+                    <h5>Déplacement chez le <span>client</span></h5>
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident, unde corrupti veniam dolorem nisi sunt sequi .</p>
                 </div>
             </div>
@@ -69,41 +105,14 @@ function Quisommmesnous(){
                     <img src={service}/>
                 </div>
                 <div className="quisommesnous_service_text">
-                    <h5>Des problèmes de <span>comptabilité</span> ?</h5>
+                    <h5>Des services en <span>distanciel</span></h5>
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident, unde corrupti veniam dolorem nisi sunt sequi necessitatibus error rem cupiditate inventore dolore beatae perspiciatis deserunt quos temporibus accusantium dignissimos ipsa.</p>
-                </div>
-            </div>
-            <div className="quisommesnous_service">
-                <div className="quisommesnous_service_image">
-                    <img src={service}/>
-                </div>
-                <div className="quisommesnous_service_text">
-                    <h5>Soyez assisté dans vos <span>devis</span></h5>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-                </div>
-            </div>
-            <div className="quisommesnous_service">
-                <div className="quisommesnous_service_image">
-                    <img src={service}/>
-                </div>
-                <div className="quisommesnous_service_text">
-                    <h5>Facilitez vos <span>factures</span></h5>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident, unde corrupti veniam dolorem nisi sunt sequi necessitatibus error rem cupiditate inventore dolore beatae perspiciatis deserunt quos temporibus accusantium dignissimos ipsa.</p>
-                </div>
-            </div>
-            <div className="quisommesnous_service">
-                <div className="quisommesnous_service_image">
-                    <img src={service}/>
-                </div>
-                <div className="quisommesnous_service_text">
-                    <h5>Préparez vos <span>jurys</span></h5>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident, unde corrupti veniam dolorem nisi sunt sequi necessitatibus error rem cupiditate inventore dolore.</p>
                 </div>
             </div>
         </div>
     
     </div>
-    <Partenaires/>
+    {/* <Partenaires/> */}
     <Footer />
     </>
     )

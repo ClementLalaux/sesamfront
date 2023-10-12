@@ -1,77 +1,4 @@
 
-
-.quisommesnous_titre {
-    width: 80%;
-    margin: auto;
-    margin-top: 3em;
-    margin-bottom:8em;
-}
-
-.quisommesnous_titre h1 {
-    text-align: center;
-    color: #000;
-    text-align: center;
-    font-family: 'DM Serif Text';
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin:1.5em 0;
-}
-
-.quisommesnous_connexion {
-    width: 50%;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
-
-}
-
-.quisommesnous_connexion div{
-    width: 25%;
-    text-align: center;
-}
-
-.quisommesnous_connexion div p{
-    border-radius: 17px;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    border: 5px solid #E29BE3;
-    color: #000;
-    font-family: 'Work Sans';
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
-.quisommesnous_sous_titre {
-    text-align: center;
-    margin-bottom: 4em;
-}
-
-.quisommesnous_sous_titre>h3 {
-    color: #E29BE3;
-    text-align: center;
-    font-family: 'Work Sans';
-    font-size: 30px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-.quisommesnous_sous_titre>h2 {
-    color: #000;
-    text-align: center;
-    font-family: 'DM Serif Text';
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
 .quisommesnous_description {
     width: 80%;
     margin: auto;
@@ -99,13 +26,34 @@
     width: 80%;
 }
 
-.quisommesnous_text > div > p{
+.quisommesnous_text > div > ul {
     color: #000;
     font-family: 'Work Sans';
-    font-size: 24px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+.quisommesnous_text > div > div > h4 {
+    color: #000;
+    font-family: 'DM Serif Text';
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 1em;
+}
+
+.quisommesnous_text > div > h5 {
+    color: #000;
+    font-family: 'DM Serif Text';
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin-bottom: 1em;
+    margin-top: 1em;
 }
 
 

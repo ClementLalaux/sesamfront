@@ -10,7 +10,9 @@ import Admin from './pages/Admin';
 import Services from './pages/Services';
 import Quisommmesnous from './pages/Quisommesnous';
 import Administratif from './pages/Administratif';
-import Home from './pages/Home';
+import Accueil from './pages/Accueil';
+import Formation from './pages/Formation';
+import Partenaire from './pages/Partenaire';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,7 +20,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
   {
     path : "/",
-    element: <Home/>
+    element: <Accueil/>
   },
   {
     path:"/contact",
@@ -41,6 +43,12 @@ const router = createBrowserRouter([
   },{
     path:"/services/administratif",
     element:<Administratif/>
+  },{
+    path:"/formation",
+    element:<Formation/>
+  },{
+    path:"/partenaires",
+    element:<Partenaire/>
   }
 ]);
 

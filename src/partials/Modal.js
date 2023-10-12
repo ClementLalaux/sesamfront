@@ -3,7 +3,7 @@ import Connexion from "../shared/Connexion";
 import Inscription from "../shared/Inscription";
 import { createPortal } from "react-dom";
 
-function Modal(){
+function Modal(props){
 
     const [signFormMode, setSignFormMode] = useState("");
   const [loginModalOpen, setLoginModalOpen] = useState(false);
@@ -32,7 +32,7 @@ function Modal(){
         <>
             <div onClick={handleOutsideClick}>
             <div className="blog_titre">
-                    <h1>Vous souhaitez résoudre vos<br/> problèmes de gestion ?</h1>
+                    <h1>{props.titre}</h1>
                     <div className="blog_connexion">
                         <div>
                             <p onClick={onLoginHandler}>Connexion</p>

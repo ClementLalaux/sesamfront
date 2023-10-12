@@ -32,7 +32,7 @@ function Accueil() {
           <Header />
           <div className="accueil">
             <div className="image_accueil" style={{ backgroundImage: `url(${accueil})` }}>
-                <h1>Vous souhaitez résoudre vos problèmes de gestion ?</h1>
+                <h1>Des services sur mesure, adaptés à vos besoins !</h1>
             </div>
             </div>
           <Footer onLoginHandler={onLoginHandler}/>

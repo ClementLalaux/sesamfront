@@ -7,23 +7,14 @@ import '../assets/style/quisommesnous.css';
 import service from '../assets/img/service.png';
 import SousTitre from "../partials/SousTitre";
 import Carrousel from "../partials/Carrousel";
+import Modal from "../partials/Modal";
 
 function Administratif(){
     return(
         <div>
         <Header/>
         <div className="services">
-                <div className="services_titre">
-                    <h1>Vous souhaitez résoudre vos<br/> problèmes de gestion ?</h1>
-                    <div className="services_connexion">
-                        <div>
-                            <p>Inscription</p>
-                        </div>
-                        <div>
-                            <p>Connexion</p>
-                        </div>
-                    </div>
-                </div>
+                <Modal titre="Vous souhaitez résoudre vos problèmes de gestion ?"/>
                 <SousTitre titre="Administratif" texte="Que propose-t-on ?"/>
             </div>
             <div className="service">
@@ -77,7 +68,7 @@ function Administratif(){
 
     
 
-        <Partenaires/>
+        {/* <Partenaires/> */}
 
         <Footer/>
         </div>
