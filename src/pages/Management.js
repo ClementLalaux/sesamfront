@@ -2,24 +2,25 @@ import Footer from "../partials/Footer";
 import Header from "../partials/Header";
 import '../assets/style/services.css';
 import article from "../assets/img/article1.jpg";
+
 import service from '../assets/img/service.png';
 import SousTitre from "../partials/SousTitre";
 import Carrousel from "../partials/Carrousel";
 import Modal from "../partials/Modal";
 
-function Administratif(){
+function Management(){
 
-    const pageActive = 'administratif';
+    const pageActive = 'management';
 
     return(
         <div>
         <Header pageActive={pageActive}/>
         <div className="services">
-                <Modal titre="Vous souhaitez résoudre vos problèmes administratifs ?"/>
-                <SousTitre titre="Administratif" texte="Que propose-t-on ?"/>
+                <Modal titre="Vous souhaitez résoudre vos problèmes de managements ?"/>
+                <SousTitre titre="Management" texte="Que propose-t-on ?"/>
             </div>
             <div className="service">
-                <h3>Adm<span className="souligne">inistr</span>atif</h3>
+                <h3>Man<span className="souligne">agem</span>ent</h3>
                 <div className="service_col">
                     <div className="service_img">
                         <div>
@@ -42,7 +43,7 @@ function Administratif(){
             <SousTitre titre="Nos avis clients" texte="Que dit-on de nous ?"/>
 
             <Carrousel/>
-            <SousTitre titre="Comment ca marche ?" texte="Nos devis pour les services administratif"/>
+            <SousTitre titre="Comment ca marche ?" texte="Nos devis pour les services de managements"/>
 
         <div className="service">
                 <div className="service_col">
@@ -76,4 +77,4 @@ function Administratif(){
     )
 }
 
-export default Administratif;
+export default Management;

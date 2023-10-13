@@ -6,9 +6,11 @@ import article from "../assets/img/article1.jpg";
 import Footer from "../partials/Footer";
 
 function Formation(){
+
+    const pageActive = 'formation';
     return(
         <>
-        <Header/>
+        <Header pageActive={pageActive}/>
             <div className="services">
                 <Modal titre="Conception et animation de sessions de formations"/>
                 <SousTitre titre="Nos formations" texte="Que propose-t-on ?"/>

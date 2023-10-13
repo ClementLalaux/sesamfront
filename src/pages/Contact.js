@@ -3,9 +3,11 @@ import Header from "../partials/Header";
 import "../assets/style/contact.css";
 
 function Contact(){
+
+    const pageActive = 'contact';
     return(
         <>
-        <Header/>
+        <Header pageActive={pageActive}/>
             <div className="contact">
                 <div className="contact_titre">
                     <h1>Vous souhaitez nous contacter ?</h1>

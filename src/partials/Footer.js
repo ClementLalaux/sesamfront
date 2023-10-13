@@ -1,45 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
+import Connexion from '../shared/Connexion';
+import { Link } from 'react-router-dom';
 
 function Footer(props){
 
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
+
+  const onLoginHandler = async () => {
+   setLoginModalOpen(true); 
+  }
+
+  const closeModal = () => {
+      setLoginModalOpen(false); // Fermer la modal de connexion
+    };
+  
+    // Gestionnaire d'événements pour détecter les clics en dehors de la modal
+    const handleOutsideClick = (event) => {
+      if (loginModalOpen && event.target.id === "modal-root") {
+        closeModal();
+      }
+    };
+
     return(
         <>
+        <div onClick={handleOutsideClick}>
+          {loginModalOpen && createPortal(<Connexion onClose={() => setLoginModalOpen(false)} title="Connexion"></Connexion>, document.getElementById("modal-root"))}
             <div className="footer">
                 <div className="footer_categories">
                     <div className="footer_service">
-                        <h5>Services</h5>
+                        <h5><Link to="/services">Services</Link></h5>
                         <div>
-                            <p>Administration</p>
-                            <p>Facturation</p>
+                            <p><Link to="/services/administratif">Administration</Link></p>
+                            <p><Link to="/services/facturation">Facturation</Link></p>
                         </div>
                         <div>
-                            <p>Comptabilité</p>
-                            <p>Devis</p>
+                            <p><Link to="/services/comptabilite">Comptabilité</Link></p>
+                            <p><Link to="/services/devis">Devis</Link></p>
                         </div>
                         <div>
-                            <p>Management</p>
-                            <p>Jury</p>
+                            <p><Link to="/services/management">Management</Link></p>
+                            <p><Link to="/services/jury">Jury</Link></p>
                         </div>
                     </div>
                     <div className="footer_information">
                         <h5>Information</h5>
                         <div>
-                            <p>FAQ</p>
+                            <p><Link to="/actualite">Actualité</Link></p>
                         </div>
                         <div>
-                            <p>Blog</p>
-                        </div>
-                        <div>
-                            <p>Support</p>
+                            <p><Link to="/partenaires">Partenaires</Link></p>
                         </div>
                     </div>
                     <div className="footer_compagnie">
                         <h5>Compagnie</h5>
                         <div>
-                            <p>A propos</p>
+                            <p><Link to="/about-us">A propos</Link></p>
                         </div>
                         <div>
-                            <p>Contact</p>
+                            <p><Link to="/contact">Contact</Link></p>
                         </div>
                     </div>
                     <div className="footer_inscription">
@@ -47,7 +66,7 @@ function Footer(props){
                             Vous souhaitez vous connecter ?
                         </h5>
                         <div>
-                            <p onClick={props.onLoginHandler}>Connexion</p>
+                            <p onClick={onLoginHandler}>Connexion</p>
                         </div>
                     </div>
                 </div>
@@ -72,6 +91,7 @@ function Footer(props){
                     </div>
                 </div>
                 
+            </div>
             </div>
         </>
     )

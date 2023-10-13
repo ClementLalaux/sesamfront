@@ -1,24 +1,21 @@
 import '../assets/style/quisommesnous.css';
 import portrait from '../assets/img/portrait.jpg';
 import service from '../assets/img/service.png';
-import Partenaires from "../partials/Partenaires";
 import SousTitre from "../partials/SousTitre";
 import Carrousel from "../partials/Carrousel";
 import Header from '../partials/Header';
 import Footer from '../partials/Footer';
 import React from 'react';
-import { createPortal } from 'react-dom';
-import Inscription from '../shared/Inscription';
-import Connexion from '../shared/Connexion';
 import Modal from '../partials/Modal';
 
 function Quisommmesnous(){
 
+    const pageActive = 'about';
 
     return(
     <>
 
-    <Header/>
+    <Header pageActive={pageActive}/>
     <div className="quisommesnous">
         <Modal titre="Vous souhaitez résoudre vos problèmes de gestion ?"/>
         <SousTitre titre="Notre histoire" texte="Qui sommes-nous ?"/>

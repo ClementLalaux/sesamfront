@@ -6,10 +6,10 @@ import SousTitre from "../partials/SousTitre";
 
 function Partenaire(){
 
-
+    const pageActive = 'partenaires';
     return(
         <>
-        <Header/>
+        <Header pageActive={pageActive}/>
         <div className="partenaire">
             <Modal titre="Des partenaires qui nous aident dans nos activités !"/>
             <SousTitre titre="Nos partenaires" texte="Qui sont-ils ?"/>

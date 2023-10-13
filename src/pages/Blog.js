@@ -9,9 +9,11 @@ import Modal from "../partials/Modal";
 
 function Blog(){
 
+    const pageActive = 'actualite';
+
     return(
         <>
-        <Header/>
+        <Header pageActive={pageActive}/>
             <div className="blog">
             <Modal titre="Voici les derniers articles parus ! "/>
                 <SousTitre titre="Blog" texte="Nos derniers articles"/>

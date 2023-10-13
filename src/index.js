@@ -13,6 +13,10 @@ import Administratif from './pages/Administratif';
 import Accueil from './pages/Accueil';
 import Formation from './pages/Formation';
 import Partenaire from './pages/Partenaire';
+import Management from './pages/Management';
+import Comptabilite from './pages/Comptabilite';
+import Facturation from './pages/Facturation';
+import Devis from './pages/Devis';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -43,6 +47,18 @@ const router = createBrowserRouter([
   },{
     path:"/services/administratif",
     element:<Administratif/>
+  },{
+    path:"/services/management",
+    element:<Management/>
+  },{
+    path:"/services/comptabilite",
+    element:<Comptabilite/>
+  },{
+    path:"/services/facturation",
+    element:<Facturation/>
+  },{
+    path:"/services/devis",
+    element:<Devis/>
   },{
     path:"/formation",
     element:<Formation/>

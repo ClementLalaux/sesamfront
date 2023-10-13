@@ -8,10 +8,11 @@ import Modal from "../partials/Modal";
 
 function Services(){
 
+    const pageActive = 'services';
     return(
         <>
 
-        <Header/>
+        <Header pageActive={pageActive}/>
             <div className="services">
                 <Modal titre="Des prestations sur mesure qui contribuent à votre succès !"/>
                 <SousTitre titre="Nos services" texte="Que propose-t-on ?"/>

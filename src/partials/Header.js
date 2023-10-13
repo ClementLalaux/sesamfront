@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import logo from"../assets/img/logo.png";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import "../assets/style/App.css";
 
-function Header(){
+function Header(props){
+
+    console.log(props);
 
     function changeDropdown() {
         let dropdown = document.getElementById('dropdown');
@@ -32,52 +35,50 @@ function Header(){
         <>
         <div className="header">
             <div className="logo_div">
-                <img src={logo}></img>
+                <Link to="/"><img src={logo}></img></Link>
             </div>
             <div className="categories_div">
                 <div className="accueil_div">
-                    <Link to="/">ACCUEIL</Link>
+                    <Link to="/" className={props.pageActive === 'accueil' ? 'actif' : 'no_active'}>ACCUEIL</Link>
                 </div>
                 <div className="nous_div">
-                    <Link to="/about-us">QUI SOMMES-NOUS ?</Link>
+                    <Link to="/about-us" className={props.pageActive === 'about' ? 'actif' : 'no_active'}>QUI SOMMES-NOUS ?</Link>
                 </div>
                 <div className="prestation_div" onMouseOver={changeDropdown} onMouseLeave={deleteDropdown}>
-                    <Link to="/services">SERVICES</Link>
+                    <Link to="/services" className={props.pageActive === 'services' ? 'actif' : 'no_active'}>SERVICES</Link>
                     <div className='dropdown' id='dropdown'>
-                        <p onMouseOver={makeFleche} onMouseLeave={deleteFleche} className='text_dropdown'><Link to="/services/administratif"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" >
+                        <p onMouseOver={makeFleche} onMouseLeave={deleteFleche} className='text_dropdown'><Link to="/services/administratif" className={props.pageActive === 'administratif' ? 'actif_dropdown' : 'no_active_dropdown'}><svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" >
 <path  d="M12.1871 6.96353L0.916322 13.9651L0.788538 0.171917L12.1871 6.96353Z" fill="#E29BE3"/>
 </svg> Administratif</Link></p>
-                        <p onMouseOver={makeFleche} onMouseLeave={deleteFleche} className='text_dropdown'><svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" >
+                        <p onMouseOver={makeFleche} onMouseLeave={deleteFleche} className='text_dropdown'><Link to="/services/management" className={props.pageActive === 'management' ? 'actif_dropdown' : 'no_active_dropdown'}><svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" >
 <path  d="M12.1871 6.96353L0.916322 13.9651L0.788538 0.171917L12.1871 6.96353Z" fill="#E29BE3"/>
-</svg> Management</p>
-                        <p onMouseOver={makeFleche} onMouseLeave={deleteFleche} className='text_dropdown'><svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" >
+</svg> Management</Link></p>
+                        <p onMouseOver={makeFleche} onMouseLeave={deleteFleche} className='text_dropdown'><Link to="/services/comptabilite" className={props.pageActive === 'comptabilite' ? 'actif_dropdown' : 'no_active_dropdown'}><svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" >
 <path  d="M12.1871 6.96353L0.916322 13.9651L0.788538 0.171917L12.1871 6.96353Z" fill="#E29BE3"/>
-</svg> Comptabilité</p>
-                        <p onMouseOver={makeFleche} onMouseLeave={deleteFleche} className='text_dropdown'><svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" >
+</svg> Comptabilité</Link></p>
+                        <p onMouseOver={makeFleche} onMouseLeave={deleteFleche} className='text_dropdown'><Link to="/services/facturation" className={props.pageActive === 'facturation' ? 'actif_dropdown' : 'no_active_dropdown'}><svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" >
 <path  d="M12.1871 6.96353L0.916322 13.9651L0.788538 0.171917L12.1871 6.96353Z" fill="#E29BE3"/>
-</svg> Facturation</p>
-                        <p onMouseOver={makeFleche} onMouseLeave={deleteFleche} className='text_dropdown'><svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" >
+</svg> Facturation</Link></p>
+                        <p onMouseOver={makeFleche} onMouseLeave={deleteFleche} className='text_dropdown'><Link to="/services/devis" className={props.pageActive === 'devis' ? 'actif_dropdown' : 'no_active_dropdown'}><svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" >
 <path  d="M12.1871 6.96353L0.916322 13.9651L0.788538 0.171917L12.1871 6.96353Z" fill="#E29BE3"/>
-</svg> Devis</p>
-                        <p onMouseOver={makeFleche} onMouseLeave={deleteFleche} className='text_dropdown'><svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" >
-<path  d="M12.1871 6.96353L0.916322 13.9651L0.788538 0.171917L12.1871 6.96353Z" fill="#E29BE3"/>
-</svg> Jury</p>
+</svg> Devis</Link></p>
+                    
                     </div>
                 </div>
                 <div className="formation_div">
-                    <Link to="/formation">FORMATIONS</Link>
+                    <Link to="/formation" className={props.pageActive === 'formation' ? 'actif' : 'no_active'}>FORMATIONS</Link>
                 </div>
                 <div className="jury_div">
                     <p>JURY</p>
                 </div>
                 <div className="partenaire_div">
-                    <Link to="/partenaires">PARTENAIRES</Link>
+                    <Link to="/partenaires" className={props.pageActive === 'partenaires' ? 'actif' : 'no_active'}>PARTENAIRES</Link>
                 </div>
                 <div className="actualite_div">
-                <Link to="/actualite">ACTUALITÉ</Link>
+                <Link to="/actualite" className={props.pageActive === 'actualite' ? 'actif' : 'no_active'}>ACTUALITÉ</Link>
                 </div>
                 <div className="contact_div">
-                    <Link to="/contact">CONTACT</Link>
+                    <Link to="/contact" className={props.pageActive === 'contact' ? 'actif' : 'no_active'}>CONTACT</Link>
                 </div>
             </div>
         </div>

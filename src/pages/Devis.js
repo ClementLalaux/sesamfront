@@ -7,19 +7,18 @@ import SousTitre from "../partials/SousTitre";
 import Carrousel from "../partials/Carrousel";
 import Modal from "../partials/Modal";
 
-function Administratif(){
+function Devis(){
 
-    const pageActive = 'administratif';
-
+    const pageActive = 'devis'
     return(
         <div>
         <Header pageActive={pageActive}/>
         <div className="services">
-                <Modal titre="Vous souhaitez résoudre vos problèmes administratifs ?"/>
-                <SousTitre titre="Administratif" texte="Que propose-t-on ?"/>
+                <Modal titre="Vous souhaitez résoudre vos problèmes de devis ?"/>
+                <SousTitre titre="Devis" texte="Que propose-t-on ?"/>
             </div>
             <div className="service">
-                <h3>Adm<span className="souligne">inistr</span>atif</h3>
+                <h3>D<span className="souligne">evi</span>s</h3>
                 <div className="service_col">
                     <div className="service_img">
                         <div>
@@ -42,7 +41,7 @@ function Administratif(){
             <SousTitre titre="Nos avis clients" texte="Que dit-on de nous ?"/>
 
             <Carrousel/>
-            <SousTitre titre="Comment ca marche ?" texte="Nos devis pour les services administratif"/>
+            <SousTitre titre="Comment ca marche ?" texte="Nos devis pour les services de devis"/>
 
         <div className="service">
                 <div className="service_col">
@@ -76,4 +75,4 @@ function Administratif(){
     )
 }
 
-export default Administratif;
+export default Devis;
