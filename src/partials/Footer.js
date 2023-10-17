@@ -1,11 +1,28 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import Connexion from '../shared/Connexion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { isUserLoggedIn, logout } from '../services/AuthService';
+import { useDispatch, useSelector } from 'react-redux';
+import { getNoRole, logOut, selectIsAuthenticated } from "../pages/authSlice";
 
 function Footer(props){
 
     const [loginModalOpen, setLoginModalOpen] = useState(false);
+
+    const dispatch = useDispatch();
+
+    const isAuth = useSelector(selectIsAuthenticated);
+
+
+    const navigator = useNavigate();
+
+    function handleLogout(){
+        logout();
+        dispatch(logOut());
+        dispatch(getNoRole());
+        navigator('/')
+    }
 
   const onLoginHandler = async () => {
    setLoginModalOpen(true); 
@@ -52,6 +69,7 @@ function Footer(props){
                             <p><Link to="/partenaires">Partenaires</Link></p>
                         </div>
                     </div>
+
                     <div className="footer_compagnie">
                         <h5>Compagnie</h5>
                         <div>
@@ -61,14 +79,28 @@ function Footer(props){
                             <p><Link to="/contact">Contact</Link></p>
                         </div>
                     </div>
-                    <div className="footer_inscription">
-                        <h5>
-                            Vous souhaitez vous connecter ?
-                        </h5>
-                        <div>
-                            <p onClick={onLoginHandler}>Connexion</p>
+                    
+                    { !isAuth ? (
+                        <div className="footer_inscription">
+                            <h5>
+                                Vous souhaitez vous connecter ?
+                            </h5>
+                            <div>
+                                <p onClick={onLoginHandler}>Connexion</p>
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        <div className="footer_inscription">
+                            <h5>
+                                Vous souhaitez vous déconnecter ?
+                            </h5>
+                            <div>
+                                <p onClick={handleLogout}>Déconnexion</p>
+                            </div>
+                        </div>
+                    )}
+                    
+                    
                 </div>
                 <hr></hr>
                 <div className="footer_logo">

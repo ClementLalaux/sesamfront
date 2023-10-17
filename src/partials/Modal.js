@@ -3,30 +3,33 @@ import Connexion from "../shared/Connexion";
 import Inscription from "../shared/Inscription";
 import { createPortal } from "react-dom";
 
+
 function Modal(props){
 
     const [signFormMode, setSignFormMode] = useState("");
-  const [loginModalOpen, setLoginModalOpen] = useState(false);
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
+    
 
-  const onSigningHandler = async () => {
-      setSignFormMode("inscription");
-  };
+    const onSigningHandler = async () => {
+        setSignFormMode("inscription");
+    };
 
 
-  const onLoginHandler = async () => {
-   setLoginModalOpen(true); 
-  }
+    const onLoginHandler = async () => {
+        setLoginModalOpen(true); 
+    }
 
-  const closeModal = () => {
-      setLoginModalOpen(false); // Fermer la modal de connexion
+    const closeModal = () => {
+        setLoginModalOpen(false); 
     };
   
-    // Gestionnaire d'événements pour détecter les clics en dehors de la modal
     const handleOutsideClick = (event) => {
       if (loginModalOpen && event.target.id === "modal-root") {
         closeModal();
       }
     };
+
+    
 
     return(
         <>

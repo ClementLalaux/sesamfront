@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from"../assets/img/logo.png";
 import { Link } from 'react-router-dom';
 import "../assets/style/App.css";
+import { useSelector } from 'react-redux';
+import { selectIsAdmin, selectIsAuthenticated } from '../pages/authSlice';
+import avatar from '../assets/img/avatar.png';
 
 function Header(props){
 
-    console.log(props);
+    const isAuth = useSelector(selectIsAuthenticated);
+    const isAdmin = useSelector(selectIsAdmin);
+
+    useEffect(() => {
+        console.log(isAuth); 
+      }, [isAuth]);
 
     function changeDropdown() {
         let dropdown = document.getElementById('dropdown');
@@ -32,8 +40,13 @@ function Header(props){
     }
 
     return(
-        <>
+        <>{isAdmin ?(<div className='admin_div'>
+                <Link to='/admin'><img src={avatar}/></Link>
+            </div>) : null
+        }
+        
         <div className="header">
+            
             <div className="logo_div">
                 <Link to="/"><img src={logo}></img></Link>
             </div>
@@ -42,7 +55,7 @@ function Header(props){
                     <Link to="/" className={props.pageActive === 'accueil' ? 'actif' : 'no_active'}>ACCUEIL</Link>
                 </div>
                 <div className="nous_div">
-                    <Link to="/about-us" className={props.pageActive === 'about' ? 'actif' : 'no_active'}>QUI SOMMES-NOUS ?</Link>
+                    <Link to="/about-us" className={props.pageActive === 'about' ? 'actif' : 'no_active'}>À PROPOS</Link>
                 </div>
                 <div className="prestation_div" onMouseOver={changeDropdown} onMouseLeave={deleteDropdown}>
                     <Link to="/services" className={props.pageActive === 'services' ? 'actif' : 'no_active'}>SERVICES</Link>
@@ -77,9 +90,11 @@ function Header(props){
                 <div className="actualite_div">
                 <Link to="/actualite" className={props.pageActive === 'actualite' ? 'actif' : 'no_active'}>ACTUALITÉ</Link>
                 </div>
-                <div className="contact_div">
-                    <Link to="/contact" className={props.pageActive === 'contact' ? 'actif' : 'no_active'}>CONTACT</Link>
-                </div>
+                {isAuth ?(<div className="contact_div">
+                            <Link to="/contact" className={props.pageActive === 'contact' ? 'actif' : 'no_active'}>CONTACT</Link>
+                        </div>) : null
+                }
+                
             </div>
         </div>
         </>
