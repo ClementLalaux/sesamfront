@@ -76,6 +76,16 @@
     padding: 0.4em;
 
 }
+
+.recherche button {
+    border-radius: 10px;
+    border: 1.4px solid #E10EE5;
+    background: none;
+    margin-bottom: 1em ;
+    text-align: left;
+    padding: 0.4em;
+    margin-right: 1em;
+}
 tr input {
     margin-left: 1em;
 }

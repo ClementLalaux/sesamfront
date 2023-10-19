@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { loginAPICall, saveLoggedInUser, storeToken } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getRole, login, selectIsAuthenticated } from "../pages/authSlice";
+import { getRole, login, selectIsAuthenticated, setId } from "../pages/authSlice";
 
 function Connexion(props){
 
@@ -38,6 +38,7 @@ function Connexion(props){
                 if(response.data.admin == true){
                     dispatch(getRole());
                 }
+                dispatch(setId(response.data.id))
                 dispatch(login());
                 saveLoggedInUser(email);   
           }).catch(error => {
@@ -54,7 +55,7 @@ function Connexion(props){
                 <p>Content de te revoir ,<br/>tu nous avez manqué</p>
                 <form>
                     <div className="form_valeur_connexion">
-                        <input type="email" name="email" placeholder="Email*" value={email} onChange={ (e) => setEmail(e.target.value)}/>
+                        <input type="text" name="email" placeholder="Email*" value={email} onChange={ (e) => setEmail(e.target.value)}/>
                     </div>
                     <div className="form_valeur_connexion last_input">
                         <input type="password" name="password" placeholder="Mot de passe*" value={password} onChange={ (e) => setPassword(e.target.value)}/>

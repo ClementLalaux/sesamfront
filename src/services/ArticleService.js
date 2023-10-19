@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "./AuthService";
 
-//const BASE_REST_API_URL =  import.meta.env.VITE_HOST_API_ADDRESS+'/todos';
+const AUTH_REST_API_BASE_URL = "http://localhost:8082/api/article"
 
 
 axios.interceptors.request.use(function (config) {
@@ -14,12 +14,12 @@ axios.interceptors.request.use(function (config) {
     return Promise.reject(error);
   });
   
-export const getAllArticles = () => axios.get(BASE_REST_API_URL)
+export const getAllArticles = () => axios.get(AUTH_REST_API_BASE_URL)
 
-export const saveArticle = (article) => axios.post(BASE_REST_API_URL, article)
+export const saveArticle = (article) => axios.post(AUTH_REST_API_BASE_URL, article)
 
-export const getArticle = (id) => axios.get(BASE_REST_API_URL + '/' + id)
+export const getArticle = (id) => axios.get(AUTH_REST_API_BASE_URL + '/' + id)
 
-export const updateArticle = (id, article) => axios.put(BASE_REST_API_URL + '/' + id, article)
+export const updateArticle = (id, article) => axios.put(AUTH_REST_API_BASE_URL + '/' + id, article)
 
-export const deleteArticle = (id) => axios.delete(BASE_REST_API_URL + '/' + id)
+export const deleteArticle = (id) => axios.delete(AUTH_REST_API_BASE_URL + '/' + id)

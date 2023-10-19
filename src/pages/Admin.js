@@ -1,21 +1,42 @@
 import Footer from "../partials/Footer";
 import Header from "../partials/Header";
 import '../assets/style/admin.css'
+import SousTitre from "../partials/SousTitre";
+import { useState } from "react";
+import { createPortal } from "react-dom";
+import AjoutArticle from "../shared/AjoutArticle";
 
 function Admin(){
+
+    const [articleModalOpen, setArticleModalOpen] = useState(false);
+
+    const onArticleHandler = async () => {
+        setArticleModalOpen(true); 
+    };
+
+    const closeModal = () => {
+        setArticleModalOpen(false); // Fermer la modal de connexion
+    };
+
+    const handleOutsideClick = (event) => {
+        if (articleModalOpen && event.target.id === "modal-root") {
+          closeModal();
+        }
+      };
+
     return(
         <>
+        <div onClick={handleOutsideClick}>
+        {articleModalOpen && createPortal(<AjoutArticle onClose={() => setArticleModalOpen(false)} title="Connexion"></AjoutArticle>, document.getElementById("modal-root"))}
         <Header/>
             <div className="administration">
                 <div className="administration_titre">
                     <h1>Administration</h1>
                 </div>
-                <div className="administration_sous_titre">
-                    <h3>Admin</h3>
-                    <h2>Liste de tout les articles</h2>
-                </div>
+                <SousTitre titre="Admin" texte="Liste de tout les articles"/>
                 <div className="tableau">
                     <div className="recherche">
+                        <button onClick={onArticleHandler}>Ajouter</button>
                         <input type="text" placeholder="🔎 Rechercher"/>
                     </div>
                     <table className="table">
@@ -96,6 +117,7 @@ function Admin(){
                 </div>
             </div>
         <Footer/>
+        </div>
         </>
     )
 }

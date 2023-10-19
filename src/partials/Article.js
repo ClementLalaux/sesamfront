@@ -11,15 +11,14 @@ function Article(props){
             </div>
             <div className="article_texte">
                 <div className="article_titre">
-                    <h3>Titre article 1</h3>
-                    <p>(02/10/2023)</p>
+                    <h3>{props.titre}</h3>
+                    <p>({props.publication})</p>
                 </div>
                 <div className="article_description">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt sapien vitae egestas interdum. Aliquam laoreet sit amet libero euismod tristique.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt sapien vitae egestas interdum. Aliquam laoreet sit amet libero euismod tristique.</p>
+                    <p>{props.contenu}</p>
                 </div>
                 <div className="article_suite">
-                    <p>Lire la suite →</p>
+                    <p onClick={()=> props.suiteArticle(props.articleId)}>Lire la suite →</p>
                 </div>
             </div>
         </div>
