@@ -12,26 +12,35 @@ import { getAllArticles } from "../services/ArticleService";
 function Blog(){
 
     const pageActive = 'actualite';
+    const [currentPage, setCurrentPage] = useState(1);
+    const [nb, setNb] = useState(1); // Nombre total de pages
+    const articlesPerPage = 3;
 
     const [articles , setArticles] = useState([]);
 
     const navigate = useNavigate();
 
-    useEffect(()=>{
-        listArticles();
-    },[])
-
-    function listArticles(){
+    useEffect(() => {
         getAllArticles().then((response) => {
-            setArticles(response.data);
+            const totalArticles = response.data.length;
+            const totalPages = Math.ceil(totalArticles / articlesPerPage);
+            setNb(totalPages); 
+            listArticles(response.data); 
         }).catch(error => {
             console.error(error);
-        })
+        });
+    }, [currentPage]);
+
+    function listArticles(allArticles){
+        const startIndex = (currentPage - 1) * articlesPerPage;
+        const endIndex = startIndex + articlesPerPage;
+        const articlesToShow = allArticles.slice(startIndex, endIndex);
+        setArticles(articlesToShow);
     }
 
     function suiteArticle(id){
-        console.log(id)
-        navigate(`/actualite/${id}`)
+        console.log(id);
+        navigate(`/actualite/${id}`);
     }
 
     return(
@@ -46,6 +55,28 @@ function Blog(){
                         )
                 }
             </div>
+            <div id="pagination_article" className="pagination_article">  
+                <ul className="page">
+                    <li className="page__btn" onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+                        <span className="material-icons">←</span>
+                    </li>
+                    {
+                        Array.from({ length: nb }, (_, i) => (
+                            <li
+                                key={i + 1}
+                                className={`page__numbers ${currentPage === i + 1 ? 'active' : ''}`}
+                                onClick={() => setCurrentPage(i + 1)}
+                            >
+                                {i + 1}
+                            </li>
+                        ))
+                    }
+                    <li className="page__btn" onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === nb}>
+                        <span className="material-icons">→</span>
+                    </li>
+                </ul>
+            </div>
+
             <Footer />
         
         </>

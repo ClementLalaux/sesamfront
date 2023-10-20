@@ -21,6 +21,7 @@ import { isUserLoggedIn } from './services/AuthService';
 import { Provider, useSelector } from 'react-redux';
 import store from './store';
 import { selectIsAdmin } from './pages/authSlice';
+import SuiteArticle from './pages/SuiteArticle';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -89,7 +90,11 @@ const router = createBrowserRouter([
   },{
     path:"/partenaires",
     element:<Partenaire/>
-  }
+  },
+  {
+    path: "/article/:articleId", 
+    element: <SuiteArticle />,
+  },
 ]);
 
 

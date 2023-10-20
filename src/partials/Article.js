@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../assets/style/partials/article.css"
 import React from "react";
 
@@ -18,7 +19,9 @@ function Article(props){
                     <p>{props.contenu}</p>
                 </div>
                 <div className="article_suite">
-                    <p onClick={()=> props.suiteArticle(props.articleId)}>Lire la suite →</p>
+                    <Link to={"/article/"+props.articleId}>
+                        Lire la suite →
+                    </Link>
                 </div>
             </div>
         </div>
