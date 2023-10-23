@@ -5,16 +5,26 @@ import SousTitre from "../partials/SousTitre";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import AjoutArticle from "../shared/AjoutArticle";
-import { getAllArticles } from "../services/ArticleService";
+import { deleteArticle, getAllArticles, updateArticle } from "../services/ArticleService";
 import React from "react";
+import { getUser } from "../services/AuthService";
 
 function Admin(){
 
     const [articleModalOpen, setArticleModalOpen] = useState(false);
+    const [articleModalMode, setArticleModalMode] = useState("");
+    const [selectedArticle, setSelectedArticle] = useState(null);
 
     const onArticleHandler = async () => {
         setArticleModalOpen(true); 
+        setArticleModalMode("add");
     };
+
+    const onUpdateHandler = async (article) => {
+        setArticleModalOpen(true);
+        setArticleModalMode("edit");
+        setSelectedArticle(article);
+    }
 
     const closeModal = () => {
         setArticleModalOpen(false); // Fermer la modal de connexion
@@ -40,14 +50,13 @@ function Admin(){
                     setNb(totalPages);
                     listArticles(response.data);
                 } else {
-                    // Gérez le cas où response.data n'est pas un tableau
                     console.error("La réponse ne contient pas de tableau d'articles.");
                 }
             })
             .catch(error => {
                 console.error(error);
             });
-    }, [currentPage]);
+    }, [currentPage,articles,nb]);
 
     function listArticles(allArticles){
         const startIndex = (currentPage - 1) * articlesPerPage;
@@ -56,10 +65,28 @@ function Admin(){
         setArticles(articlesToShow);
     }
 
+    const onDeleteHandler = async (articleId) => {
+        deleteArticle(articleId).then((response) => {
+            console.log(response);
+        }).catch(error => {
+            console.error(error);
+        });
+    }
+
+    const findUser = async(userId) => {
+        getUser(userId).then((response) => {
+            console.log("test");
+        }).catch(error => {
+            console.error(error);
+        });
+    }
+
+
     return(
         <>
         <div onClick={handleOutsideClick}>
-        {articleModalOpen && createPortal(<AjoutArticle onClose={() => setArticleModalOpen(false)} title="Connexion"></AjoutArticle>, document.getElementById("modal-root"))}
+        {articleModalOpen && articleModalMode === "add" && createPortal(<AjoutArticle onClose={() => setArticleModalOpen(false)} buttonValue={"AJOUTER"} title="Connexion" mode={articleModalMode}></AjoutArticle>, document.getElementById("modal-root"))}
+        {articleModalOpen && articleModalMode === "edit" && createPortal(<AjoutArticle onClose={() => setArticleModalOpen(false)} buttonValue={"MODIFIER"} title="Connexion" mode={articleModalMode} selectedArticle={selectedArticle}></AjoutArticle>, document.getElementById("modal-root"))}
         <Header/>
             <div className="administration">
                 <div className="administration_titre">
@@ -89,9 +116,9 @@ function Admin(){
                                         <td scope="col-1 row"><input type="checkbox"/></td>
                                         <td scope="col-4 row">{article.titre}</td>
                                         <td scope="col-1 row">En ligne</td>
-                                        <td scope="col-3 row">Auteur</td>
+                                        <td scope="col-3 row"></td>
                                         <td scope="col-2 row">{article.publication}</td>
-                                        <td scope="col-1 row">Action</td>
+                                        <td scope="col-1 row"><button onClick={() => onDeleteHandler(article.id)} className="ms-2 btn btn-danger"><i className="bi bi-trash"></i> Delete</button><button onClick={()=>onUpdateHandler(article)} className="ms-2 btn btn-warning"><i className="bi bi-trash"></i> Modifier</button></td>
                                     </tr>
                                     )
                             }
