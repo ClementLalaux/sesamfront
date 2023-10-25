@@ -5,7 +5,7 @@ import SousTitre from "../partials/SousTitre";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import AjoutArticle from "../shared/AjoutArticle";
-import { deleteArticle, getAllArticles, updateArticle } from "../services/ArticleService";
+import { deleteArticle, getAllArticles, getFilesByArticleId, updateArticle } from "../services/ArticleService";
 import React from "react";
 import { getUser } from "../services/AuthService";
 
@@ -39,31 +39,10 @@ function Admin(){
     const [articles , setArticles] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [nb, setNb] = useState(1); // Nombre total de pages
-    const articlesPerPage = 3;
+    const articlesPerPage = 10;
 
-    useEffect(() => {
-        getAllArticles()
-            .then((response) => {
-                if (Array.isArray(response.data)) {
-                    const totalArticles = response.data.length;
-                    const totalPages = Math.ceil(totalArticles / articlesPerPage);
-                    setNb(totalPages);
-                    listArticles(response.data);
-                } else {
-                    console.error("La réponse ne contient pas de tableau d'articles.");
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }, [currentPage,articles,nb]);
+    
 
-    function listArticles(allArticles){
-        const startIndex = (currentPage - 1) * articlesPerPage;
-        const endIndex = startIndex + articlesPerPage;
-        const articlesToShow = allArticles.slice(startIndex,endIndex);
-        setArticles(articlesToShow);
-    }
 
     const onDeleteHandler = async (articleId) => {
         deleteArticle(articleId).then((response) => {
@@ -73,13 +52,56 @@ function Admin(){
         });
     }
 
-    const findUser = async(userId) => {
-        getUser(userId).then((response) => {
-            console.log("test");
-        }).catch(error => {
-            console.error(error);
-        });
+    const findUser = async() => {
+        articles.map((art) => {
+            console.log(art);
+        })
+        // getUser(userId).then((response) => {
+        //     console.log("test");
+        // }).catch(error => {
+        //     console.error(error);
+        // });
     }
+
+    useEffect(() => {
+        findArticles();
+            
+    }, [currentPage,nb]);
+
+    const findArticles = async () => {
+        try {
+          const response = await getAllArticles();
+          if (Array.isArray(response.data)) {
+            const totalArticles = response.data.length;
+            const totalPages = Math.ceil(totalArticles / articlesPerPage);
+            setNb(totalPages);
+            const startIndex = (currentPage - 1) * articlesPerPage;
+            const endIndex = startIndex + articlesPerPage;
+            const articlesToShow = response.data.slice(startIndex, endIndex);
+
+            const updatedArticles = await Promise.all(
+              articlesToShow.map(async (article) => {
+                const filesResponse = await getFilesByArticleId(article.id);
+                article.fichiers = filesResponse.data;
+                return article;
+              })
+            );
+            const getUtilisateur = await Promise.all(
+                articlesToShow.map(async (article) => {
+                  const filesResponse = await getUser(article.utilisateurId);
+                  article.utilisateur = filesResponse.data;
+                  return article;
+                })
+              );
+              console.log(updatedArticles)
+            setArticles(updatedArticles);
+          } else {
+            console.error("La réponse ne contient pas de tableau d'articles.");
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
 
     return(
@@ -106,6 +128,7 @@ function Admin(){
                             <th scope="col-1">Statut</th>
                             <th scope="col-3">Auteur</th>
                             <th scope="col-2">Date</th>
+                            <th scope="col-2">Fichiers</th>
                             <th scope="col-1">Action</th>
                             </tr>
                         </thead>
@@ -116,8 +139,15 @@ function Admin(){
                                         <td scope="col-1 row"><input type="checkbox"/></td>
                                         <td scope="col-4 row">{article.titre}</td>
                                         <td scope="col-1 row">En ligne</td>
-                                        <td scope="col-3 row"></td>
+                                        <td scope="col-3 row">{article.utilisateur.email}</td>
                                         <td scope="col-2 row">{article.publication}</td>
+                                        <td scope="col-2 row">
+                                        {article.fichiers && article.fichiers.length > 0
+                                            ? article.fichiers[0].filename.lastIndexOf("_") !== -1
+                                            ? article.fichiers[0].filename.slice(article.fichiers[0].filename.lastIndexOf("_") + 1)
+                                            : article.fichiers[0].filename
+                                            : "No files"}
+                                        </td>
                                         <td scope="col-1 row"><button onClick={() => onDeleteHandler(article.id)} className="ms-2 btn btn-danger"><i className="bi bi-trash"></i> Delete</button><button onClick={()=>onUpdateHandler(article)} className="ms-2 btn btn-warning"><i className="bi bi-trash"></i> Modifier</button></td>
                                     </tr>
                                     )

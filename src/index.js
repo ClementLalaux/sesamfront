@@ -38,7 +38,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
 const AdminRoute = ({ component: Component, ...rest }) => {
   const isAdmin = useSelector(selectIsAdmin);
-  console.log("isadmin : " + isAdmin)
   if (isAdmin && isAuth) {
     return <Component {...rest} />;
   } else {

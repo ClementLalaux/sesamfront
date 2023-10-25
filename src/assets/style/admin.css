@@ -98,6 +98,7 @@ td input {
 .pagination {
     width: 30%;
     margin: auto;
+    justify-content: center;
 }
 
 .adminstration_input {

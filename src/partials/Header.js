@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import logo from"../assets/img/logo.png";
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import "../assets/style/App.css";
 import { useSelector } from 'react-redux';
 import { selectIsAdmin, selectIsAuthenticated } from '../pages/authSlice';
@@ -13,7 +13,11 @@ function Header(props){
 
     useEffect(() => {
         console.log(isAuth); 
-      }, [isAuth]);
+      }, [isAuth,isAdmin]);
+
+    function onAdmin(){
+        redirect('/admin')
+    }
 
     function changeDropdown() {
         let dropdown = document.getElementById('dropdown');
@@ -41,7 +45,7 @@ function Header(props){
 
     return(
         <>{isAdmin ?(<div className='admin_div'>
-                <Link to='/admin'><img src={avatar}/></Link>
+                <Link to='/admin'><img src={avatar} onClick={onAdmin}/></Link>
             </div>) : null
         }
         

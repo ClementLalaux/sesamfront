@@ -2,7 +2,7 @@ import "../assets/style/ajoutarticle.css";
 import React, { useRef } from "react";
 import {  useSelector } from "react-redux";
 import { selectId } from "../pages/authSlice";
-import { saveArticle, updateArticle } from "../services/ArticleService";
+import { addFileToArticle, saveArticle, updateArticle } from "../services/ArticleService";
 
 function AjoutArticle(props){
 
@@ -11,7 +11,7 @@ function AjoutArticle(props){
     const titreRef = useRef();
     const contenuRef = useRef();
     const publicationRef = useRef();
-    const filenameRef = useRef();
+    const fichierRef = useRef();
 
 
     const backgroundClickHandler = (event) => {
@@ -25,19 +25,32 @@ function AjoutArticle(props){
         const titre = titreRef.current.value;
         const contenu = contenuRef.current.value;
         const publication = publicationRef.current.value;
-        const filename = filenameRef.current.value;
-        const test = {titre,contenu,publication,utilisateurId,filename}
+        const fichier = fichierRef.current.files[0];
+        const test = {titre,contenu,publication,utilisateurId}
         if(mode === 'edit'){
             console.log(test);
-            updateArticle(props.selectedArticle.id,test).then((response)=> {
+            await updateArticle(props.selectedArticle.id,test).then((response)=> {
                 console.log(response)
+                const formData = new FormData();
+                formData.set("file", fichierRef.current.files[0]);
+                 addFileToArticle(props.selectedArticle.id,formData).then((response)=> {
+                    console.log(response);
+                }).catch(error => {
+                    console.error(error);
+                })
             }).catch(error => {
                 console.error(error);
             })
             props.onClose(); 
         } else {
-            saveArticle(test).then((response)=> {
-                console.log(response)
+            await saveArticle(test).then((response)=> {
+                const formData = new FormData();
+                formData.set("file", fichierRef.current.files[0]);
+                 addFileToArticle(response.data.id,formData).then((response)=> {
+                    console.log(response);
+                }).catch(error => {
+                    console.error(error);
+                })
             }).catch(error => {
                 console.error(error);
             })
@@ -50,7 +63,7 @@ function AjoutArticle(props){
             <div className="article_form">
                 <button className="fermer" onClick={props.onClose}> X</button>
                 <h3>Ajouter un article</h3>
-                <form onSubmit={submitFormHandler}>
+                <form onSubmit={submitFormHandler} enctype="multipart/form-data">
                     <div className="form_valeur_article">
                         <input type="text" name="titre" placeholder="Titre*" defaultValue={props.selectedArticle?.titre} ref={titreRef}/>
                     </div>
@@ -63,7 +76,7 @@ function AjoutArticle(props){
                         <input type="date" name="publication" defaultValue={props.selectedArticle?.publication} placeholder="Date de publication*" ref={publicationRef}/>
                     </div>
                     <div className="form_valeur_article ">
-                        <input type="text" name="filename" placeholder="Image" ref={filenameRef} defaultValue={props.selectedArticle?.filename}/>
+                    <input type="file" name="file" placeholder="Image" ref={fichierRef} />
                     </div> 
                     <div className="form_valeur ">
                         <label htmlFor="statut">Statut : </label>

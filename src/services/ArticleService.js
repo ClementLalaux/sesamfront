@@ -23,3 +23,7 @@ export const getArticle = (id) => axios.get(AUTH_REST_API_BASE_URL + '/' + id)
 export const updateArticle = (id, article) => axios.put(AUTH_REST_API_BASE_URL + '/' + id, article)
 
 export const deleteArticle = (id) => axios.delete(AUTH_REST_API_BASE_URL + '/' + id)
+
+export const addFileToArticle = (id,file) => axios.post(AUTH_REST_API_BASE_URL + '/files' + '/' + id  , file)
+
+export const getFilesByArticleId = (id) => axios.get(AUTH_REST_API_BASE_URL + '/files' + '/' + id  )

@@ -7,36 +7,51 @@ import React, { useEffect, useState } from "react";
 import SousTitre from "../partials/SousTitre";
 import Modal from "../partials/Modal";
 import { useNavigate } from "react-router-dom";
-import { getAllArticles } from "../services/ArticleService";
+import { getAllArticles, getFilesByArticleId } from "../services/ArticleService";
 
 function Blog(){
 
     const pageActive = 'actualite';
     const [currentPage, setCurrentPage] = useState(1);
     const [nb, setNb] = useState(1); // Nombre total de pages
-    const articlesPerPage = 3;
+    const articlesPerPage = 5;
 
     const [articles , setArticles] = useState([]);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        getAllArticles().then((response) => {
+        findArticles();
+            
+    }, [currentPage,nb]);
+
+    const findArticles = async () => {
+        try {
+          const response = await getAllArticles();
+          if (Array.isArray(response.data)) {
             const totalArticles = response.data.length;
             const totalPages = Math.ceil(totalArticles / articlesPerPage);
-            setNb(totalPages); 
-            listArticles(response.data); 
-        }).catch(error => {
-            console.error(error);
-        });
-    }, [currentPage]);
+            setNb(totalPages);
+            const startIndex = (currentPage - 1) * articlesPerPage;
+            const endIndex = startIndex + articlesPerPage;
+            const articlesToShow = response.data.slice(startIndex, endIndex);
 
-    function listArticles(allArticles){
-        const startIndex = (currentPage - 1) * articlesPerPage;
-        const endIndex = startIndex + articlesPerPage;
-        const articlesToShow = allArticles.slice(startIndex, endIndex);
-        setArticles(articlesToShow);
-    }
+            const updatedArticles = await Promise.all(
+              articlesToShow.map(async (article) => {
+                const filesResponse = await getFilesByArticleId(article.id);
+                article.fichiers = filesResponse.data;
+                return article;
+              })
+            );
+            console.log(updatedArticles)
+            setArticles(updatedArticles);
+          } else {
+            console.error("La réponse ne contient pas de tableau d'articles.");
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
     function suiteArticle(id){
         console.log(id);
@@ -51,7 +66,7 @@ function Blog(){
                 <SousTitre titre="Blog" texte="Nos derniers articles"/>
                 {
                     articles.map(article =>
-                            <Article key={article.id} contenu={article.contenu} image={image} publication={article.publication} titre={article.titre} suiteArticle={suiteArticle} articleId={article.id}/>
+                            <Article key={article.id} contenu={article.contenu} image={article.fichiers} publication={article.publication} titre={article.titre} suiteArticle={suiteArticle} articleId={article.id}/>
                         )
                 }
             </div>
