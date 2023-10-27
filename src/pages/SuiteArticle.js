@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../partials/Header";
 import Footer from "../partials/Footer";
-import { getArticle } from "../services/ArticleService";
+import { getArticle, getFilesByArticleId } from "../services/ArticleService";
 import { useParams } from "react-router-dom";
 import SousTitre from "../partials/SousTitre";
 import "../assets/style/suitearticle.css";
@@ -13,8 +13,13 @@ function SuiteArticle(props){
 
 
     function getArticleById(){
-        getArticle(articleId).then((response) => {
-            setArticle(response.data);
+        getArticle(articleId).then( async(response) => {
+            
+            const articleToShow = response.data
+            const filesResponse = await getFilesByArticleId(response.data.id);
+            articleToShow.fichiers = filesResponse.data
+            setArticle(articleToShow);
+            console.log(articleToShow)
         }).catch(error => {
             console.error(error);
         })
@@ -33,7 +38,14 @@ function SuiteArticle(props){
                     </div>
                     <SousTitre titre={article.publication} texte={article.titre}/>
                     <div>
-                        <img />
+                        {
+                            article.fichiers ? (
+                                <img src={article.fichiers[0].filename}
+                                alt={article.fichiers[0].filename}/>
+                        ) : (
+                            <span></span>
+                        )}
+    
                     </div>
                     <div className="suite_article_p">
                         <p>{article.contenu}</p>

@@ -16,7 +16,9 @@ function Header(props){
       }, [isAuth,isAdmin]);
 
     function onAdmin(){
-        redirect('/admin')
+        if(isAdmin == true){
+            redirect('/admin')
+        }
     }
 
     function changeDropdown() {
