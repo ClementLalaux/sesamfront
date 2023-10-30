@@ -12,6 +12,7 @@ function AjoutArticle(props){
     const contenuRef = useRef();
     const publicationRef = useRef();
     const fichierRef = useRef();
+    const statutRef = useRef();
 
 
     const backgroundClickHandler = (event) => {
@@ -25,8 +26,8 @@ function AjoutArticle(props){
         const titre = titreRef.current.value;
         const contenu = contenuRef.current.value;
         const publication = publicationRef.current.value;
-        const fichier = fichierRef.current.files[0];
-        const test = {titre,contenu,publication,utilisateurId}
+        const statut = statutRef.current.checked;
+        const test = {titre,contenu,publication,statut,utilisateurId}
         if(mode === 'edit'){
             console.log(test);
             await updateArticle(props.selectedArticle.id,test).then((response)=> {
@@ -80,7 +81,7 @@ function AjoutArticle(props){
                     </div> 
                     <div className="form_valeur ">
                         <label htmlFor="statut">Statut : </label>
-                        <input type="checkbox" id="statut" name="statut" />
+                        <input type="checkbox" id="statut" name="statut" ref={statutRef}/>
                     </div>                  
                     <input type="submit" className="btn_article" value={props.buttonValue}/>
                 </form>

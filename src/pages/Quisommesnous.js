@@ -11,7 +11,6 @@ import Modal from '../partials/Modal';
 function Quisommmesnous(){
 
     const pageActive = 'about';
-
     return(
     <>
 

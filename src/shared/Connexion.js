@@ -37,6 +37,7 @@ function Connexion(props){
                 storeToken(token);
                 if(response.data.admin == true){
                     dispatch(getRole());
+                    sessionStorage.setItem("role",true);
                 }
                 dispatch(setId(response.data.id))
                 dispatch(login());

@@ -6,9 +6,9 @@ export const registerAPICall = (registerObj) => axios.post(AUTH_REST_API_BASE_UR
 
 export const loginAPICall = (email, password) => axios.post(AUTH_REST_API_BASE_URL + '/login', { email, password});
 
-export const storeToken = (token) => localStorage.setItem("token", token);
+export const storeToken = (token) => sessionStorage.setItem("token", token);
 
-export const getToken = () => localStorage.getItem("token");
+export const getToken = () => sessionStorage.getItem("token");
 
 export const getUser = (id) => axios.get(AUTH_REST_API_BASE_URL + '/' + id)
 
@@ -23,6 +23,17 @@ export const isUserLoggedIn = () => {
     }    
     else {
         return true;
+    }   
+}
+
+export const isUserAdmin = () => {
+    const role = sessionStorage.getItem("role");
+
+    if(role == "true") {
+        return true;
+    }    
+    else {
+        return false;
     }   
 }
 

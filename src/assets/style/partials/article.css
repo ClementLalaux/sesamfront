@@ -19,6 +19,8 @@
     margin: auto;
 }
 
+
+
 .article_image>div>img {
     width: 100%;
     box-shadow: 15px 15px 1px 2px white;
@@ -56,6 +58,8 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    
+
 }
 
 .article_description {
@@ -72,6 +76,14 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    /* overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 200px; */
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* Nombre de lignes à afficher */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
 }
 
 .article_suite {

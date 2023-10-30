@@ -1,23 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import logo from"../assets/img/logo.png";
-import { Link, redirect } from 'react-router-dom';
+import { Link, Navigate, redirect } from 'react-router-dom';
 import "../assets/style/App.css";
-import { useSelector } from 'react-redux';
-import { selectIsAdmin, selectIsAuthenticated } from '../pages/authSlice';
 import avatar from '../assets/img/avatar.png';
+import { isUserAdmin, isUserLoggedIn } from '../services/AuthService';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRole, login, selectIsAdmin, selectIsAuthenticated } from '../pages/authSlice';
 
 function Header(props){
 
     const isAuth = useSelector(selectIsAuthenticated);
     const isAdmin = useSelector(selectIsAdmin);
 
+    console.log(isAdmin);
+
+    const testAuth =isUserLoggedIn();
+    const testAdmin = isUserAdmin();
+
+    const dispatch = useDispatch();
     useEffect(() => {
-        console.log(isAuth); 
-      }, [isAuth,isAdmin]);
+    if (testAuth) {
+      dispatch(login()); 
+    }
+    
+    if (testAdmin) {
+      dispatch(getRole()); 
+    }
+  }, [isAuth, isAdmin]);
+
+    
 
     function onAdmin(){
-        if(isAdmin == true){
-            redirect('/admin')
+        if(isAdmin === true){
+
+            return <Navigate to="/admin" replace/>;
         }
     }
 
@@ -48,7 +64,7 @@ function Header(props){
     return(
         <>{isAdmin ?(<div className='admin_div'>
                 <Link to='/admin'><img src={avatar} onClick={onAdmin}/></Link>
-            </div>) : null
+            </div>) : <span></span>
         }
         
         <div className="header">
@@ -98,7 +114,7 @@ function Header(props){
                 </div>
                 {isAuth ?(<div className="contact_div">
                             <Link to="/contact" className={props.pageActive === 'contact' ? 'actif' : 'no_active'}>CONTACT</Link>
-                        </div>) : null
+                        </div>) : <span></span>
                 }
                 
             </div>

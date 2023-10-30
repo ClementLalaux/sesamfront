@@ -11,7 +11,6 @@ function SuiteArticle(props){
     const [article , setArticle] = useState([]);
     const { articleId } = useParams();
 
-
     function getArticleById(){
         getArticle(articleId).then( async(response) => {
             
@@ -40,7 +39,7 @@ function SuiteArticle(props){
                     <div>
                         {
                             article.fichiers ? (
-                                <img src={article.fichiers[0].filename}
+                                <img src={"http://localhost:8082/api/article/files/get/" + article.fichiers[0].filename}
                                 alt={article.fichiers[0].filename}/>
                         ) : (
                             <span></span>

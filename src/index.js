@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './assets/style/index.css';
 import './assets/style/App.css';
-import { BrowserRouter as Router, Routes, Route, createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import Contact from './pages/Contact';
 import Blog from './pages/Blog';
@@ -17,96 +17,105 @@ import Management from './pages/Management';
 import Comptabilite from './pages/Comptabilite';
 import Facturation from './pages/Facturation';
 import Devis from './pages/Devis';
-import { isUserLoggedIn } from './services/AuthService';
-import { Provider, useSelector } from 'react-redux';
+import { isUserAdmin, isUserLoggedIn } from './services/AuthService';
+import { Provider } from 'react-redux'; 
 import store from './store';
-import { selectIsAdmin } from './pages/authSlice';
 import SuiteArticle from './pages/SuiteArticle';
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const isAuth = isUserLoggedIn();
+let isAuth = isUserLoggedIn();
+let isAdmin = isUserAdmin();
+
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  
-  if (isAuth) {
+  if (isUserLoggedIn()) {
     return <Component {...rest} />;
   } else {
-    return <Navigate to="/" replace/>;
+    return <Navigate to="/" replace />;
   }
 };
 
 const AdminRoute = ({ component: Component, ...rest }) => {
-  const isAdmin = useSelector(selectIsAdmin);
+  isAuth = isUserLoggedIn();
+  isAdmin = isUserAdmin();
+  console.log(isAdmin + "admin" + ", isAuth" + isAuth)
   if (isAdmin && isAuth) {
     return <Component {...rest} />;
   } else {
-    return <Navigate to="/" replace/>;
+    return <Navigate to="/" replace />;
   }
 };
 
 const router = createBrowserRouter([
   {
-    path : "/",
-    element: <Accueil/>
+    path: '/',
+    element: <Accueil />
   },
   {
-    path:"/contact",
-    element : <PrivateRoute component={Contact}/>
+    path: '/contact',
+    element: <PrivateRoute component={Contact} />
   },
   {
-    path:"/actualite",
-    element:<Blog/>
+    path: '/actualite',
+    element: <Blog />
   },
   {
-    path:"/admin",
-    element:<AdminRoute component={Admin}/>
+    path: '/admin',
+    element: <AdminRoute component={Admin} />
   },
   {
-    path:"/services",
-    element:<Services/>
-  },{
-    path:"/about-us",
-    element:<Quisommmesnous/>
-  },{
-    path:"/services/administratif",
-    element:<Administratif/>
-  },{
-    path:"/services/management",
-    element:<Management/>
-  },{
-    path:"/services/comptabilite",
-    element:<Comptabilite/>
-  },{
-    path:"/services/facturation",
-    element:<Facturation/>
-  },{
-    path:"/services/devis",
-    element:<Devis/>
-  },{
-    path:"/formation",
-    element:<Formation/>
-  },{
-    path:"/partenaires",
-    element:<Partenaire/>
+    path: '/services',
+    element: <Services />
   },
   {
-    path: "/article/:articleId", 
-    element: <SuiteArticle />,
+    path: '/about-us',
+    element: <Quisommmesnous />
+  },
+  {
+    path: '/services/administratif',
+    element: <Administratif />
+  },
+  {
+    path: '/services/management',
+    element: <Management />
+  },
+  {
+    path: '/services/comptabilite',
+    element: <Comptabilite />
+  },
+  {
+    path: '/services/facturation',
+    element: <Facturation />
+  },
+  {
+    path: '/services/devis',
+    element: <Devis />
+  },
+  {
+    path: '/formation',
+    element: <Formation />
+  },
+  {
+    path: '/partenaires',
+    element: <Partenaire />
+  },
+  {
+    path: '/article/:articleId',
+    element: <SuiteArticle />
   },
 ]);
 
+function App() {
 
-root.render(
-  <Provider store={store}>
+  return (
+    <Provider store={store}>
       <RouterProvider router={router}>
         
       </RouterProvider>
-  </Provider>
-  
-);
+    </Provider>
+  );
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+root.render(<App />);
+
 reportWebVitals();

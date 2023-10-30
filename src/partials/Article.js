@@ -27,7 +27,7 @@ function Article(props){
                     <p>({props.publication})</p>
                 </div>
                 <div className="article_description">
-                    <p>{props.contenu}</p>
+                    <p className="truncate_text">{props.contenu}</p>
                 </div>
                 <div className="article_suite">
                     <Link to={"/article/"+props.articleId}>

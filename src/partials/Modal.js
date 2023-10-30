@@ -2,9 +2,14 @@ import { useState } from "react";
 import Connexion from "../shared/Connexion";
 import Inscription from "../shared/Inscription";
 import { createPortal } from "react-dom";
+import { useSelector } from "react-redux";
+import { selectIsAuthenticated } from "../pages/authSlice";
 
 
 function Modal(props){
+
+    const isAuth = useSelector(selectIsAuthenticated);
+    console.log(isAuth);
 
     const [signFormMode, setSignFormMode] = useState("");
     const [loginModalOpen, setLoginModalOpen] = useState(false);
@@ -36,7 +41,8 @@ function Modal(props){
             <div onClick={handleOutsideClick}>
             <div className="blog_titre">
                     <h1>{props.titre}</h1>
-                    <div className="blog_connexion">
+                    {!isAuth ? (
+                        <div className="blog_connexion">
                         <div>
                             <p onClick={onLoginHandler}>Connexion</p>
                         </div>
@@ -44,6 +50,8 @@ function Modal(props){
                             <p onClick={onSigningHandler}>Inscription</p>
                         </div>
                     </div>
+                    ) : null}
+                    
                 </div>
                 {signFormMode && createPortal(<Inscription onClose={() => setSignFormMode("")} title="Inscription"></Inscription>, document.getElementById("modal-root"))}
                 {loginModalOpen && createPortal(<Connexion onClose={() => setLoginModalOpen(false)} title="Connexion"></Connexion>, document.getElementById("modal-root"))}

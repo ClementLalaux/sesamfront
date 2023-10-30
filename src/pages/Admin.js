@@ -138,7 +138,7 @@ function Admin(){
                                     <tr key={article.id}>
                                         <td scope="col-1 row"><input type="checkbox"/></td>
                                         <td scope="col-4 row">{article.titre}</td>
-                                        <td scope="col-1 row">En ligne</td>
+                                        <td scope="col-1 row">{article.statut === 1 ? "En ligne" : "Hors-ligne"}</td>
                                         <td scope="col-3 row">{article.utilisateur.email}</td>
                                         <td scope="col-2 row">{article.publication}</td>
                                         <td scope="col-2 row">
