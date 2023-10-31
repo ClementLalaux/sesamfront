@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { loginAPICall, saveLoggedInUser, storeToken } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getRole, login, selectIsAuthenticated, setId } from "../pages/authSlice";
+import { getRole, login, selectId, selectIsAuthenticated, setId } from "../pages/authSlice";
 
 function Connexion(props){
 

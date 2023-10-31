@@ -12,8 +12,6 @@ function Header(props){
     const isAuth = useSelector(selectIsAuthenticated);
     const isAdmin = useSelector(selectIsAdmin);
 
-    console.log(isAdmin);
-
     const testAuth =isUserLoggedIn();
     const testAdmin = isUserAdmin();
 

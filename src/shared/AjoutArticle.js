@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import {  useSelector } from "react-redux";
 import { selectId } from "../pages/authSlice";
 import { addFileToArticle, saveArticle, updateArticle } from "../services/ArticleService";
+import { getUser } from "../services/AuthService";
 
 function AjoutArticle(props){
 
@@ -28,35 +29,43 @@ function AjoutArticle(props){
         const publication = publicationRef.current.value;
         const statut = statutRef.current.checked;
         const test = {titre,contenu,publication,statut,utilisateurId}
+        
         if(mode === 'edit'){
-            console.log(test);
-            await updateArticle(props.selectedArticle.id,test).then((response)=> {
-                console.log(response)
-                const formData = new FormData();
-                formData.set("file", fichierRef.current.files[0]);
-                 addFileToArticle(props.selectedArticle.id,formData).then((response)=> {
-                    console.log(response);
-                }).catch(error => {
-                    console.error(error);
-                })
+            await updateArticle(props.selectedArticle.id,test).then(async (response)=> {
+                console.log(response);
+                const filesResponse = await getUser(test.utilisateurId);
+                test.utilisateur = filesResponse.data;
+                console.log(test);
+                props.updateExistingArticle(props.selectedArticle.id, test);
             }).catch(error => {
                 console.error(error);
             })
-            props.onClose(); 
+            
         } else {
-            await saveArticle(test).then((response)=> {
+            // Ajout d'un nouvel article
+            try {
+                const response = await saveArticle(test);
+        
                 const formData = new FormData();
-                formData.set("file", fichierRef.current.files[0]);
-                 addFileToArticle(response.data.id,formData).then((response)=> {
-                    console.log(response);
-                }).catch(error => {
-                    console.error(error);
-                })
-            }).catch(error => {
+                const filesArray = Array.from(fichierRef.current.files);
+        
+                for (const fichier of filesArray) {
+                    formData.set("file", fichier);
+                    await addFileToArticle(response.data.id, formData);
+                }
+        
+                const userResponse = await getUser(utilisateurId);
+                console.log(userResponse)
+                test.utilisateur = userResponse.data;
+                console.log(test);
+        
+                props.addNewArticle(response.data);
+            } catch (error) {
                 console.error(error);
-            })
-            props.onClose(); 
+            }
+            
         } 
+        props.onClose(); 
     }
       
     return(
@@ -77,7 +86,7 @@ function AjoutArticle(props){
                         <input type="date" name="publication" defaultValue={props.selectedArticle?.publication} placeholder="Date de publication*" ref={publicationRef}/>
                     </div>
                     <div className="form_valeur_article ">
-                    <input type="file" name="file" placeholder="Image" ref={fichierRef} />
+                    <input type="file" name="file" placeholder="Image" ref={fichierRef} multiple/>
                     </div> 
                     <div className="form_valeur ">
                         <label htmlFor="statut">Statut : </label>

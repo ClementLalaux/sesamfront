@@ -5,7 +5,7 @@ const authSlice = createSlice({
   initialState: {
     isAuthenticated: false,
     isAdmin : false,
-    id : 0
+    id : localStorage.getItem("userId") || 1
   },
   reducers: {
     login: (state) => {
