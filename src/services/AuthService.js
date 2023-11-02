@@ -1,8 +1,12 @@
 import axios from "axios";
 
+const MAIL_REST_API_BASE_URL = "http://localhost:8083/api/mail"
+
 const AUTH_REST_API_BASE_URL = process.env.REACT_APP_AUTH_API_ADDRESS+"/auth"
 
 export const registerAPICall = (registerObj) => axios.post(AUTH_REST_API_BASE_URL + '/register', registerObj);
+
+export const postMail = (mailObj) => axios.post(MAIL_REST_API_BASE_URL + '/send' , mailObj);
 
 export const loginAPICall = (email, password) => axios.post(AUTH_REST_API_BASE_URL + '/login', { email, password});
 

@@ -35,6 +35,7 @@ function AjoutArticle(props){
                 console.log(response);
                 const filesResponse = await getUser(test.utilisateurId);
                 test.utilisateur = filesResponse.data;
+                test.id = props.selectedArticle.id;
                 console.log(test);
                 props.updateExistingArticle(props.selectedArticle.id, test);
             }).catch(error => {

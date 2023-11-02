@@ -34,6 +34,7 @@ function Admin(){
           article.id === articleId ? updatedArticle : article
         );
         setArticles(updatedArticles);
+        console.log(updatedArticles)
       };
 
     const onUpdateHandler = async (article) => {
@@ -71,6 +72,7 @@ function Admin(){
     useEffect(() => {
             findArticles(); 
             setNewArticleAdded(false); 
+            console.log(articles)
     }, [currentPage, nb, newArticleAdded]);
 
     const findArticles = async () => {
