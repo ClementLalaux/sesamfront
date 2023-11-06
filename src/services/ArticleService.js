@@ -28,4 +28,8 @@ export const addFileToArticle = (id,file) => axios.post(AUTH_REST_API_BASE_URL +
 
 export const getFilesByArticleId = (id) => axios.get(AUTH_REST_API_BASE_URL + '/files' + '/' + id  )
 
-export const getFileByName = (imageName) => axios.get(AUTH_REST_API_BASE_URL + '/files/get' + '/' + imageName  )
+export const getImagesByArticleId = (id) => axios.get(AUTH_REST_API_BASE_URL + '/image' + '/' + id  )
+
+export const getFileByName = (fileName) => axios.get(AUTH_REST_API_BASE_URL + '/files/get/files' + '/' + fileName)
+
+export const getImageByName = (imageName) => axios.get(AUTH_REST_API_BASE_URL + '/files/get/image' + '/' + imageName)

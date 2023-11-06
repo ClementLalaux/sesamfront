@@ -4,6 +4,8 @@ import React from "react";
 
 function Article(props){
 
+    console.log(props)
+
 
     return(
         <div className="article">
@@ -12,7 +14,7 @@ function Article(props){
 
                 {props.image[0] ? (
                         <img
-                        src={"http://localhost:8082/api/article/files/get/" + props.image[0].filename}
+                        src={"http://localhost:8082/api/article/files/get/image/" + props.image[0].filename}
                         alt={props.image[0].filename}
                         />
                     ) : (

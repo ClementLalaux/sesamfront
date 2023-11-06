@@ -87,8 +87,9 @@ function AjoutArticle(props){
                         <input type="date" name="publication" defaultValue={props.selectedArticle?.publication} placeholder="Date de publication*" ref={publicationRef}/>
                     </div>
                     <div className="form_valeur_article ">
-                    <input type="file" name="file" placeholder="Image" ref={fichierRef} multiple/>
-                    </div> 
+                    <input type="file" name="file" placeholder="Fichiers" ref={fichierRef} multiple/>
+                    </div>
+
                     <div className="form_valeur ">
                         <label htmlFor="statut">Statut : </label>
                         <input type="checkbox" id="statut" name="statut" ref={statutRef}/>

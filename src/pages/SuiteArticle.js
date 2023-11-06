@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Header from "../partials/Header";
 import Footer from "../partials/Footer";
-import { getArticle, getFilesByArticleId } from "../services/ArticleService";
-import { useParams } from "react-router-dom";
+import { getArticle, getFilesByArticleId, getImagesByArticleId } from "../services/ArticleService";
+import { Link, useParams } from "react-router-dom";
 import SousTitre from "../partials/SousTitre";
 import "../assets/style/suitearticle.css";
 
@@ -15,10 +15,13 @@ function SuiteArticle(props){
         getArticle(articleId).then( async(response) => {
             
             const articleToShow = response.data
-            const filesResponse = await getFilesByArticleId(response.data.id);
-            articleToShow.fichiers = filesResponse.data
+            const imagesResponse = await getImagesByArticleId(response.data.id);
+            articleToShow.images = imagesResponse.data
+
+            const fichiersResponse = await getFilesByArticleId(response.data.id)
+            articleToShow.fichiers = fichiersResponse.data
             setArticle(articleToShow);
-            console.log(articleToShow)
+            console.log(articleToShow.contenu)
         }).catch(error => {
             console.error(error);
         })
@@ -28,6 +31,17 @@ function SuiteArticle(props){
         getArticleById();
     },[])
 
+    const renderTextWithLineBreaks = (text) => {
+        const paragraphs = text.split("\n");
+        const textWithBreaks = paragraphs.map((paragraph, index) => (
+            <p key={index}>
+                {paragraph.replace(/\n/g, "<br />")}
+            </p>
+        ));
+    
+        return textWithBreaks;
+    };
+
     return(
         <>
             <Header/>
@@ -36,18 +50,37 @@ function SuiteArticle(props){
                         <h1>Article</h1>
                     </div>
                     <SousTitre titre={article.publication} texte={article.titre}/>
-                    <div>
+                    <div className="suite_article_img">
                         {
-                            article.fichiers ? (
-                                <img src={"http://localhost:8082/api/article/files/get/" + article.fichiers[0].filename}
-                                alt={article.fichiers[0].filename}/>
+                            article.images && article.images.length > 0? (
+                                <img src={"http://localhost:8082/api/article/files/get/image/" + article.images[0].filename}
+                                alt={article.images[0].filename}/>
                         ) : (
                             <span></span>
                         )}
     
                     </div>
                     <div className="suite_article_p">
-                        <p>{article.contenu}</p>
+                        {article.contenu ? renderTextWithLineBreaks(article.contenu) : null}
+                    </div>
+                    <div className="liens_article">
+
+                    {article.fichiers && article.fichiers.length > 0 ? (
+                        <>
+                            <p className="suite_article_liens_p">Les liens : </p>
+                            <ul>
+                                {article.fichiers.map((file, index) => (
+                                    <li key={index}>
+                                        <a href={"http://localhost:8082/api/article/files/get/file/" + file.filename}>
+                                            {file.filename}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </>
+                    ) : (
+                        <span></span>
+                    )}
                     </div>
                 </div>
 

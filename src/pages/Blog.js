@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import SousTitre from "../partials/SousTitre";
 import Modal from "../partials/Modal";
 import { useNavigate } from "react-router-dom";
-import { getAllArticles, getFilesByArticleId } from "../services/ArticleService";
+import { getAllArticles, getFilesByArticleId, getImagesByArticleId } from "../services/ArticleService";
 
 function Blog(){
 
@@ -38,7 +38,7 @@ function Blog(){
 
             const updatedArticles = await Promise.all(
               articlesToShow.map(async (article) => {
-                const filesResponse = await getFilesByArticleId(article.id);
+                const filesResponse = await getImagesByArticleId(article.id);
                 article.fichiers = filesResponse.data;
                 return article;
               })

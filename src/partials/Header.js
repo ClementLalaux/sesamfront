@@ -102,7 +102,7 @@ function Header(props){
                     <Link to="/formation" className={props.pageActive === 'formation' ? 'actif' : 'no_active'}>FORMATIONS</Link>
                 </div>
                 <div className="jury_div">
-                    <p>JURY</p>
+                <Link to="/jury" className={props.pageActive === 'jury' ? 'actif' : 'no_active'}>JURY</Link>
                 </div>
                 <div className="partenaire_div">
                     <Link to="/partenaires" className={props.pageActive === 'partenaires' ? 'actif' : 'no_active'}>PARTENAIRES</Link>

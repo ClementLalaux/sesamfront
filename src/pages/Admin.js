@@ -5,7 +5,7 @@ import SousTitre from "../partials/SousTitre";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import AjoutArticle from "../shared/AjoutArticle";
-import { deleteArticle, getAllArticles, getFilesByArticleId, updateArticle } from "../services/ArticleService";
+import { deleteArticle, getAllArticles, getFilesByArticleId, getImagesByArticleId, updateArticle } from "../services/ArticleService";
 import React from "react";
 import { getUser } from "../services/AuthService";
 import { selectId } from "./authSlice";
@@ -89,8 +89,9 @@ function Admin(){
 
             const updatedArticles = await Promise.all(
               articlesToShow.map(async (article) => {
-                const filesResponse = await getFilesByArticleId(article.id);
+                const filesResponse = await getImagesByArticleId(article.id);
                 article.fichiers = filesResponse.data;
+                console.log(article)
                 return article;
 
               })
@@ -138,7 +139,7 @@ function Admin(){
                             <th scope="col-1">Statut</th>
                             <th scope="col-3">Auteur</th>
                             <th scope="col-2">Date</th>
-                            <th scope="col-2">Fichiers</th>
+                            <th scope="col-2">Image</th>
                             <th scope="col-1">Action</th>
                             </tr>
                         </thead>
@@ -148,7 +149,7 @@ function Admin(){
                                     <tr key={article.id}>
                                         <td scope="col-1 row"><input type="checkbox"/></td>
                                         <td scope="col-4 row">{article.titre}</td>
-                                        <td scope="col-1 row">{article.statut === 1 ? "En ligne" : "Hors-ligne"}</td>
+                                        <td scope="col-1 row">{article.statut === true ? "En ligne" : "Hors-ligne"}</td>
                                         <td scope="col-3 row">{article.utilisateur ? article.utilisateur.email : 'Utilisateur inconnu'}</td>
                                         <td scope="col-2 row">{article.publication}</td>
                                         <td scope="col-2 row">
