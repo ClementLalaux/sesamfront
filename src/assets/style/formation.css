@@ -26,6 +26,7 @@
     margin-top: 4em;
     margin-bottom: 4em;
 }
+
 .service_col_deux {
     width: 100%;
     display: flex;
@@ -97,4 +98,57 @@
 }
 
 
+@media screen and (max-width:900px) {
+    .service_col_deux>div {
+        width: 100%;
+        margin: auto;
+        margin-bottom: 2em;
+    }
+
+    .linebreak {
+        border-bottom: none;
+    }
+
+    .service_col>div {
+        width: 100%;
+        margin: auto;
+        margin-bottom: 2em;
+    }
+
+    .service_text div p,.service_text_a p  {
+        text-align: center;
+        margin-bottom: 1em;
+    }
+
+    .service_text div ul,.service_text_a ul  {
+        text-align: center;
+        margin-bottom: 1em;
+    }
+
+    .service_text div h5,.service_text_a h5  {
+        text-align: center;
+        margin-bottom: 1em;
+    }
+
+    .service_col_deux {
+        justify-content: center; 
+    }
+
+    .service_col {
+        justify-content: center;    
+    }
+
+    .service_col_deux .service_text  {
+        justify-content: center;
+        margin: auto;
+    }
+
+    .service_text div{
+        width:100%;
+    }
+
+    .service_text_no_marging {
+        margin-bottom: 0em;
+    }
+  }
 

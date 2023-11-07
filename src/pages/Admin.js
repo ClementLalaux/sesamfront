@@ -131,6 +131,7 @@ function Admin(){
                         <button onClick={onArticleHandler} >Ajouter</button>
                         <input type="text" placeholder="🔎 Rechercher"/>
                     </div>
+                    <div className="table-responsive">
                     <table className="table">
                         <thead>
                             <tr>
@@ -165,6 +166,7 @@ function Admin(){
                             }
                         </tbody>
                     </table>
+                    </div>
                     <div className="pagination">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">

@@ -59,7 +59,7 @@ function Services(){
                             </div>
                         </div>
                 </div>
-                <h3>Du secré<span className="souligne">tariat et services admini</span>stratifs</h3>
+                <h3>Du secré<span className="souligne linebreak">tariat et services admini</span>stratifs</h3>
                 <div className="service_col">
                     <div className="service_img">
                         <div>

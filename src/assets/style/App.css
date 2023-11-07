@@ -232,3 +232,159 @@ hr {
  margin-right: 30px;
 }
 
+@media screen and (max-width:1100px) and (min-width:600px){
+  .footer_categories > div{
+    width: 50%;
+  }
+
+  .footer_categories .footer_inscription h5 {
+    text-align: left;
+  }
+
+  .footer_categories .footer_inscription div {
+    justify-content: left;
+  }
+}
+
+@media screen and (max-width:600px) {
+  .footer_categories > div{
+    width: 100%;
+    margin-bottom: 2em;
+  }
+
+  .footer_categories .footer_inscription h5 {
+    text-align: center;
+  }
+
+  .footer_categories .footer_inscription div {
+    justify-content: center;
+  }
+
+  .footer_logo div{
+    margin-bottom: 2em;
+    width: 100%;
+  }
+}
+
+/* Styles pour le menu latéral (pour tous les écrans) */
+.menu-button {
+  display: none;
+}
+
+
+
+.menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: -80%; /* Assurez-vous que cette valeur déplace le menu hors de l'écran */
+  width: 80%;
+  height: 100%;
+  background-color: #e29be3ec;
+  ;
+  color: rgb(0, 0, 0);
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+
+
+.open {
+  left: 0;
+}
+
+.open>div {
+  width: 100%;
+  height: auto;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.486);
+  padding: 1.5em;
+}
+
+.close-menu {
+  display: inline-block ;
+  position: absolute;
+  width: fit-content !important;
+  padding: 1em !important;
+  border-bottom: none !important;
+
+  left: 2%;
+  top: 1%;
+  
+}
+
+.menu-button {
+  border-radius: 10px;
+    border: 3px solid #E29BE3;
+    text-align: center;
+    padding: 12px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    width: 100%;
+    background: none;
+}
+.close-menu>p {
+  font-size: 16px;
+  border-radius: 1000px;
+  width: fit-content;
+  font-weight: 600;
+  margin: 0 !important;
+}
+
+.formation_div_media>ul>li>a {
+  color: #000000;
+  font-family: 'Work Sans';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.accueil_div_media {
+  margin-top: 3em;
+}
+
+/* Styles pour les écrans étroits (moins de 1400px) */
+@media screen and (max-width: 1400px) {
+  .header {
+    justify-content: space-between;
+    padding: 1em;
+    /* Masquez le menu principal pour les écrans étroits */
+    .categories_div {
+      display: none;
+    }
+
+    /* Affichez le bouton du menu pour les écrans étroits */
+    .menu-button {
+      display: block;
+      margin-top: 0.3em;
+    }
+
+    .menu {
+      display: block;
+    }
+  }
+}
+
+
+@media screen and (max-width: 1000px) and (min-width:800px) {
+  .logo_div img {
+    width: 80%;
+  }
+  
+}
+
+@media screen and (max-width: 799px) and (min-width:600px) {
+  .logo_div img {
+    width: 100%;
+  }
+  
+}
+
+@media screen and (max-width: 599px)  {
+  .logo_div img {
+    width: 140%;
+  }
+  
+}

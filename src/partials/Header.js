@@ -16,6 +16,16 @@ function Header(props){
     const testAdmin = isUserAdmin();
 
     const dispatch = useDispatch();
+    const [menuOpen, setMenuOpen] = useState(false);
+  
+    const toggleMenu = () => {
+      setMenuOpen(!menuOpen);
+    };
+
+    const closeMenu = () => {
+        setMenuOpen(false);
+      };
+
     useEffect(() => {
     if (testAuth) {
       dispatch(login()); 
@@ -65,10 +75,67 @@ function Header(props){
             </div>) : <span></span>
         }
         
-        <div className="header">
+        <div className={`header ${menuOpen ? 'menu-open' : ''}`}>
             
             <div className="logo_div">
                 <Link to="/"><img src={logo}></img></Link>
+            </div>
+            <div>
+            <button className="menu-button" onClick={toggleMenu}>
+                    MENU
+                </button>
+            </div>
+                
+            <div className={`menu ${menuOpen ? 'open' : ''}`}>
+                <div className="close-menu" onClick={closeMenu}>
+                <p>X</p>
+                </div>
+                <div className="accueil_div_media">
+                    <Link to="/" className={props.pageActive === 'accueil' ? 'actif' : 'no_active'}>ACCUEIL</Link>
+                </div>
+                <div className="nous_div_media">
+                    <Link to="/about-us" className={props.pageActive === 'about' ? 'actif' : 'no_active'}>À PROPOS</Link>
+                </div>
+                <div className="prestation_div_media" onMouseOver={changeDropdown} onMouseLeave={deleteDropdown}>
+                    <Link to="/services" className={props.pageActive === 'services' ? 'actif' : 'no_active'}>SERVICES</Link>
+                    
+                </div>
+                <div className="formation_div_media">
+                    <Link to="/formation" className={props.pageActive === 'formation' ? 'actif' : 'no_active'}>FORMATIONS</Link>
+                    <ul>
+                        <li>
+                            <Link to="/formation" className={props.pageActive === 'formation' ? 'actif' : 'no_active'}>Administratif</Link>
+                        </li>
+                        <li>
+                            <Link to="/formation" className={props.pageActive === 'formation' ? 'actif' : 'no_active'}>Managament</Link>
+                        </li>
+                        <li>
+                            <Link to="/formation" className={props.pageActive === 'formation' ? 'actif' : 'no_active'}>Comptabilité</Link>
+                        </li>
+                        <li>
+                            <Link to="/formation" className={props.pageActive === 'formation' ? 'actif' : 'no_active'}>Facturation</Link>
+                        </li>
+                        <li>
+                            <Link to="/formation" className={props.pageActive === 'formation' ? 'actif' : 'no_active'}>Devis</Link>
+                        </li>
+                    </ul>
+                </div>
+
+                <div className="jury_div_media">
+                <Link to="/jury" className={props.pageActive === 'jury' ? 'actif' : 'no_active'}>JURY</Link>
+                </div>
+                <div className="partenaire_div_media">
+                    <Link to="/partenaires" className={props.pageActive === 'partenaires' ? 'actif' : 'no_active'}>PARTENAIRES</Link>
+                </div>
+                <div className="actualite_div_media">
+                <Link to="/actualite" className={props.pageActive === 'actualite' ? 'actif' : 'no_active'}>ACTUALITÉ</Link>
+                </div>
+                {isAuth ?(<div className="contact_div_media">
+                            <Link to="/contact" className={props.pageActive === 'contact' ? 'actif' : 'no_active'}>CONTACT</Link>
+                        </div>) : <span></span>
+                }
+                
+                
             </div>
             <div className="categories_div">
                 <div className="accueil_div">

@@ -93,3 +93,18 @@
     text-align: right;
     padding-right: 3em;
 }
+
+@media screen and (max-width:1100px) {
+    .article_image{
+        width: 100%;
+        margin-bottom: 2em;
+    }
+
+    .article_texte{
+        width: 80%;
+    }
+
+    .article_suite {
+        padding-right: 0em;
+    }
+  }

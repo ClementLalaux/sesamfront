@@ -37,14 +37,19 @@
     
 }
 
-form {
+.form_contact {
     width: 45%;
     text-align: center;
 }
 
+.form_valeur_bis {
+    text-align: left;
+    margin-bottom: 1em;
+}
 
-.form_valeur input {
-    width: 90%;
+
+.form_valeur_bis input {
+    width: 100%;
     border-radius: 10px;
     padding: 12px;
     margin-top: 1em;
@@ -54,8 +59,8 @@ form {
     font-family: 'Work Sans';
 }
 
-.form_valeur textarea {
-    width: 90%;
+.form_valeur_bis textarea {
+    width: 100%;
     border-radius: 10px;
     padding: 12px;
     margin-top: 1em;
@@ -79,3 +84,23 @@ form {
     margin-bottom: 8em;
     width: 100%;
 }
+
+@media screen and (max-width:1200px) and (min-width : 600px) {
+    .contact_form {
+        width: 50%;
+    }
+
+    .form_contact {
+        width: 70%;
+    }
+}
+@media screen and (max-width:599px)  {
+    .contact_form {
+        width: 80%;
+    }
+
+    .form_contact {
+        width: 90%;
+    }
+}
+

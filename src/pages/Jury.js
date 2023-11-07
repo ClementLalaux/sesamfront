@@ -56,14 +56,14 @@ function Jury(){
             <SousTitre titre="Comment ca marche ?" texte="Nos devis pour les services de jurys"/>
 
         <div className="service">
-                <div className="service_col">
+                <div className="service_col service_text_no_marging">
                     <div className="service_img">
                         <div>
                             <img src={service}/>
                         </div>
                         
                     </div>
-                    <div className="service_text">
+                    <div className="service_text ">
                         <div>
                             <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque metus libero, interdum sed odio id, accumsan tempor massa. Pellentesque sodales mollis semper.

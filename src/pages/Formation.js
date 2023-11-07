@@ -53,7 +53,7 @@ function Formation(){
                             </div>
                         </div>
                 </div>
-                <h3>Apprentiss<span className="souligne">age des savoirs fon</span>damentaux</h3>
+                <h3>Apprentiss<span className="souligne linebreak">age des savoirs fon</span>damentaux</h3>
                 <div className="service_col">
                     <div className="service_img">
                         <div>
@@ -86,7 +86,7 @@ function Formation(){
                             </div>
                         </div>
                 </div>
-                <h3>Gestion d<span className="souligne">u stress et confian</span>ce en soi</h3>
+                <h3>Gestion d<span className="souligne linebreak">u stress et confian</span>ce en soi</h3>
                 <div className="service_col">
                     <div className="service_img">
                         <div>
@@ -113,7 +113,8 @@ function Formation(){
                                 <ul className="formation_ul">
                                     <li>Rédaction de courriers, notes de service, rapports …</li>
                                     <li>Méthodes d'organisation administratives</li>
-                                    <li>Accueil physique et téléphonique - Obtenez les compétences en communication orale et écrite</li>
+                                    <li>Accueil physique et téléphonique </li>
+                                    <li>Obtenez les compétences en communication orale et écrite</li>
                                     <li>Maîtrise des outils informatiques tableurs et traitement de textes</li>
                                 </ul>
                             </div>

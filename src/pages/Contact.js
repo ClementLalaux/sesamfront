@@ -65,8 +65,8 @@ function Contact() {
         </div>
         <div className="contact_form">
           <h3>CONTACTEZ NOUS</h3>
-          <form onSubmit={handleSubmit}>
-            <div className="form_valeur">
+          <form onSubmit={handleSubmit} className='form_contact'>
+            <div className="form_valeur_bis">
               <input
                 type="email"
                 name="recipient"
@@ -76,7 +76,7 @@ function Contact() {
               />
               {errors.recipient && <span>{errors.recipient}</span>}
             </div>
-            <div className="form_valeur">
+            <div className="form_valeur_bis">
               <input
                 type="text"
                 name="subject"
@@ -95,7 +95,7 @@ function Contact() {
                 onChange={handleChange}
               />
             </div> */}
-            <div className="form_valeur">
+            <div className="form_valeur_bis">
               <textarea
                 name="body"
                 placeholder="Message*"
