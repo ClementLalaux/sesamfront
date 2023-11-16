@@ -134,6 +134,12 @@ td input {
     background-color: #E29BE3;
     color: white;
 }
+.texte_cut {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
 @media screen and (max-width : 700px) {
     .administration {

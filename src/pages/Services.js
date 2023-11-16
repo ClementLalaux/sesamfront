@@ -3,12 +3,46 @@ import Header from "../partials/Header";
 import '../assets/style/services.css';
 import article from "../assets/img/article1.jpg";
 import SousTitre from "../partials/SousTitre";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../partials/Modal";
+import { getTexteByPage } from "../services/TexteService";
 
 function Services(){
 
     const pageActive = 'services';
+
+    const [textes , setTextes] = useState([]);
+
+    const findTextes = async () => {
+        try {
+            const response = await getTexteByPage(pageActive);
+            console.log(response.data);
+            setTextes(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+    }
+
+    const renderTextWithLineBreaks = (text) => {
+        if (typeof text !== 'string' || text === undefined) {
+            return null; 
+        }
+        const paragraphs = text.split("\n");
+        const textWithBreaks = paragraphs.map((paragraph, index) => (
+            <p key={index}>
+                {paragraph.replace(/\n/g, "<br />")}
+            </p>
+        ));
+    
+        return textWithBreaks;
+    };
+
+    useEffect(() => {
+        findTextes();
+        console.log(textes)
+    }, []);
+
+
     return(
         <>
 
@@ -28,14 +62,8 @@ function Services(){
                     </div>
                     <div className="service_text">
                         <div>
-                            <ul className="services_ul">
-                                <li>RECRUTEMENT DES ÉQUIPES</li>
-                                <li>MANAGEMENT</li>
-                                <li>GESTION DES CONFLITS</li>
-                                <li>APPRENTISSAGE DES SAVOIRS FONDAMENTAUX</li>
-                                <li>PRÉPARATION AUX ENTRETIENS</li>
-                                <li>MÉTIERS ADMINISTRATIFS</li>
-                                <li>GESTION DU STRESS ET CONFIANCE EN SOI</li>
+                            <ul>
+                            {textes.length > 0 && textes[0].contenu && renderTextWithLineBreaks(textes[0].contenu)}
                             </ul>
                         </div>
             
@@ -46,9 +74,7 @@ function Services(){
                         <div className="service_text">
                             <div>
                                 <ul className="services_ul">
-                                    <li>SECRÉTAIRE ASSISTANT</li>
-                                    <li>SECRÉTAIRE COMPTABLE</li>
-                                    <li>AGENT ADMINISTRATIF ET D'ACCUEIL</li>
+                                {textes.length > 0 && textes[1].contenu && renderTextWithLineBreaks(textes[1].contenu)}
                                 </ul>
                             </div>
                 
@@ -69,9 +95,7 @@ function Services(){
                     <div className="service_text">
                         <div>
                             <ul className="services_ul">
-                                <li>MISE EN PAGE DE COURRIERS, NOTES DE SERVICES, RAPPORTS, ….</li>
-                                <li>PRÉPARATION AUX ENTRETIENS</li>
-                                <li>GESTION DU STRESS et CONFIANCE EN SOI</li>
+                            {textes.length > 0 && textes[2].contenu && renderTextWithLineBreaks(textes[2].contenu)}
                             </ul>
                         </div>
             

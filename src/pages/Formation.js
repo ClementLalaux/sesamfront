@@ -4,10 +4,43 @@ import '../assets/style/formation.css';
 import SousTitre from "../partials/SousTitre";
 import article from "../assets/img/article1.jpg";
 import Footer from "../partials/Footer";
+import { useEffect, useState } from "react";
+import { getTexteByPage } from "../services/TexteService";
 
 function Formation(){
 
     const pageActive = 'formation';
+    const [textes , setTextes] = useState([]);
+
+    const findTextes = async () => {
+        try {
+            const response = await getTexteByPage(pageActive);
+            console.log(response.data);
+            setTextes(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+    }
+
+    const renderTextWithLineBreaks = (text) => {
+        if (typeof text !== 'string' || text === undefined) {
+            return null; 
+        }
+        const paragraphs = text.split("\n");
+        const textWithBreaks = paragraphs.map((paragraph, index) => (
+            <p key={index}>
+                {paragraph.replace(/\n/g, "<br />")}
+            </p>
+        ));
+    
+        return textWithBreaks;
+    };
+
+    useEffect(() => {
+        findTextes();
+        console.log(textes)
+    }, []);
+
     return(
         <>
         <Header pageActive={pageActive}/>
@@ -26,13 +59,7 @@ function Formation(){
                     </div>
                     <div className="service_text">
                         <div>
-                            <p>
-                                Maîtrisez les principes du management et du leadership
-                            </p>
-                            <p>Augmentez votre capacité à inspirer, motiver et encadrer les individus et les équipes</p>
-                            <p>
-                                Boostez votre carrière en devenant un leader de confiance. Notre formation en management vous donne les compétences et la vision nécessaires pour réussir dans un monde professionnel en constante évolution.
-                            </p>
+                            {textes.length > 0 && textes[0].contenu && renderTextWithLineBreaks(textes[0].contenu)}
                         </div>
             
                     </div>
@@ -41,9 +68,8 @@ function Formation(){
                     <div className="service_col_deux">
                         <div className="service_text">
                             <div>
-                                <p>
-                                Apprenez à gérer les conflits avec assurance et diplomatie grâce à notre formation spécialisée en gestion des conflits, et transformez les défis en opportunités.
-                                </p>
+
+                                {textes.length > 0 && textes[1].contenu && renderTextWithLineBreaks(textes[1].contenu)}
                             </div>
                 
                         </div>
@@ -62,10 +88,7 @@ function Formation(){
                     </div>
                     <div className="service_text">
                         <div>
-                            <p>
-                            Reprenez ou redonnez confiance avec un enseignement des matières fondamentales telles que les mathématiques, la lecture, l'écriture ...
-                            </p>
-                            <p>Plans de tutorat ciblés pour surmonter les obstacles dans la compréhension et la pratique.</p>
+                            {textes.length > 0 && textes[2].contenu && renderTextWithLineBreaks(textes[2].contenu)}
                         </div>
             
                     </div>
@@ -74,9 +97,7 @@ function Formation(){
                 <div className="service_col_deux">
                         <div className="service_text">
                             <div>
-                                <p>
-                                Bénéficiez d'un aide pratique pour la préparation des candidats aux différents entretiens (recrutement, préparation aux concours, titres professionnels …)
-                                </p>
+                                {textes.length > 0 && textes[3].contenu && renderTextWithLineBreaks(textes[3].contenu)}
                             </div>
                 
                         </div>
@@ -95,10 +116,8 @@ function Formation(){
                     </div>
                     <div className="service_text">
                         <div>
-                            <p>
-                            Conception et la mise en œuvre de programmes de formation efficaces visant à aider les individus à gérer le stress, à développer leur confiance en eux et à atteindre leur plein potentiel. 
-                            </p>
-                            <p>Conseils personnalisés en gestion du stress et en renforcement de la confiance en soi.</p>
+                            
+                            {textes.length > 0 && textes[4].contenu && renderTextWithLineBreaks(textes[4].contenu)}
                         </div>
             
                     </div>
@@ -107,16 +126,7 @@ function Formation(){
                 <div className="service_col_deux">
                         <div className="service_text">
                             <div>
-                                <p>
-                                Programmes de formation pour les métiers administratifs, la bureautique avancée et les procédures administratives standard. 
-                                </p>
-                                <ul className="formation_ul">
-                                    <li>Rédaction de courriers, notes de service, rapports …</li>
-                                    <li>Méthodes d'organisation administratives</li>
-                                    <li>Accueil physique et téléphonique </li>
-                                    <li>Obtenez les compétences en communication orale et écrite</li>
-                                    <li>Maîtrise des outils informatiques tableurs et traitement de textes</li>
-                                </ul>
+                                {textes.length > 0 && textes[5].contenu && renderTextWithLineBreaks(textes[5].contenu)}
                             </div>
                 
                         </div>

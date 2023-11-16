@@ -6,10 +6,43 @@ import service from '../assets/img/service.png';
 import SousTitre from "../partials/SousTitre";
 import Carrousel from "../partials/Carrousel";
 import Modal from "../partials/Modal";
+import { getTexteByPage } from "../services/TexteService";
+import { useEffect, useState } from "react";
 
 function Jury(){
 
     const pageActive = 'jury';
+
+    const [textes , setTextes] = useState([]);
+
+    const findTextes = async () => {
+        try {
+            const response = await getTexteByPage(pageActive);
+            console.log(response.data);
+            setTextes(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+    }
+
+    const renderTextWithLineBreaks = (text) => {
+        if (typeof text !== 'string' || text === undefined) {
+            return null; 
+        }
+        const paragraphs = text.split("\n");
+        const textWithBreaks = paragraphs.map((paragraph, index) => (
+            <p key={index}>
+                {paragraph.replace(/\n/g, "<br />")}
+            </p>
+        ));
+    
+        return textWithBreaks;
+    };
+
+    useEffect(() => {
+        findTextes();
+        console.log(textes)
+    }, []);
 
     return(
         <div>
@@ -29,10 +62,8 @@ function Jury(){
                     </div>
                     <div className="service_text">
                         <div>
-                            <p>
-                            Confiez-nous la responsabilité d'évaluer les compétences de vos candidats en secrétariat, comptabilité, administration et accueil, et soyez assurés de la qualité de nos services.
-                            </p>
-                            <h5 className="titre_jury">Habilitations aux Titres professionnels administratifs :</h5>
+                        {textes.length > 0 && textes[0].contenu && renderTextWithLineBreaks(textes[0].contenu)}
+                            <h5 className="titre_jury">Habilitations aux Titres professionnels <br/>administratifs :</h5>
                             <ul className="jury_ul">
                                 <li>
                                 TP 01318 Employé Administratif et d'Accueil <br/>Référenciel : <a href="https://www.francecompetences.fr/recherche/rncp/36803/"> Voir ici </a>
@@ -65,23 +96,15 @@ function Jury(){
                     </div>
                     <div className="service_text ">
                         <div>
-                            <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque metus libero, interdum sed odio id, accumsan tempor massa. Pellentesque sodales mollis semper.
-                            </p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque metus libero, interdum sed odio id, accumsan tempor massa. Pellentesque sodales mollis semper.</p>
+                        {textes.length > 0 && textes[1].contenu && renderTextWithLineBreaks(textes[1].contenu)}
                         </div>
             
                     </div>
                 </div>
                 <div className="service_text_a">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, error. Reprehenderit tempore cum a rem perferendis, debitis illum hic reiciendis minima asperiores mollitia voluptatem molestias. Consectetur vitae excepturi omnis rerum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident assumenda natus blanditiis molestiae voluptates aspernatur, labore sequi doloribus iure reiciendis eos id deserunt quas voluptate, quo error consequuntur deleniti laborum?</p>
+                {textes.length > 0 && textes[2].contenu && renderTextWithLineBreaks(textes[2].contenu)}
                 </div>
-            </div>
-
-    
-
-        {/* <Partenaires/> */}
-
+            </div> 
         <Footer/>
         </div>
     )

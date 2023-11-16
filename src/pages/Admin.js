@@ -6,16 +6,23 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import AjoutArticle from "../shared/AjoutArticle";
 import { deleteArticle, getAllArticles, getFilesByArticleId, getImagesByArticleId, updateArticle } from "../services/ArticleService";
+import { getAllTextes, updateTexte } from "../services/TexteService";
 import React from "react";
 import { getUser } from "../services/AuthService";
 import { selectId } from "./authSlice";
 import { useSelector } from "react-redux";
+import AjoutTexte from "../shared/AjoutTexte";
+import { getAllImages } from "../services/ImageService";
 
 function Admin(){
 
+    const [formMode , setFormMode] = useState(1);
+
     const [articleModalOpen, setArticleModalOpen] = useState(false);
+    const [texteModalOpen, setTexteModalOpen] = useState(false);
     const [articleModalMode, setArticleModalMode] = useState("");
     const [selectedArticle, setSelectedArticle] = useState(null);
+    const [selectedTexte, setSelectedTexte] = useState(null);
     const utilisateurId = useSelector(selectId);
     const [newArticleAdded, setNewArticleAdded] = useState(false);
 
@@ -37,10 +44,23 @@ function Admin(){
         console.log(updatedArticles)
       };
 
+      const updateExistingTexte = (texteId, updatedTexte) => {
+        const updatedTextes = textes.map((texte) =>
+        texte.id === texteId ? updatedTexte : texte
+        );
+        setTextes(updatedTextes);
+        setNewArticleAdded(true);
+      };
+
     const onUpdateHandler = async (article) => {
         setArticleModalOpen(true);
         setArticleModalMode("edit");
         setSelectedArticle(article);
+    }
+
+    const onUpdateTextHandler = async (article) => {
+        setSelectedTexte(article);
+        setTexteModalOpen(true);
     }
 
     const closeModal = () => {
@@ -54,6 +74,8 @@ function Admin(){
     };
 
     const [articles , setArticles] = useState([]);
+    const [textes, setTextes] = useState([]);
+    const [images, setImages] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [nb, setNb] = useState(1); // Nombre total de pages
     const articlesPerPage = 10;
@@ -68,12 +90,72 @@ function Admin(){
         };
     }
 
+    const afficheTableau = () => {
+        if(formMode == 1){
+            document.getElementById("article-tableau").style.display = "block";
+            document.getElementById("texte-tableau").style.display = "none";
+            document.getElementById("image-tableau").style.display = "none";
+        } else if (formMode == 2){
+            document.getElementById("article-tableau").style.display = "none";
+            document.getElementById("texte-tableau").style.display = "block";
+            document.getElementById("image-tableau").style.display = "none";
+        } else if (formMode == 3){
+            document.getElementById("article-tableau").style.display = "none";
+            document.getElementById("texte-tableau").style.display = "none";
+            document.getElementById("image-tableau").style.display = "block";
+        }
+    }
+
 
     useEffect(() => {
+            afficheTableau();
             findArticles(); 
+            findTextes();
+            findImages();
             setNewArticleAdded(false); 
             console.log(articles)
-    }, [currentPage, nb, newArticleAdded]);
+    }, [currentPage, nb, newArticleAdded,formMode]);
+
+    const findTextes = async() => {
+        try {
+            const response = await getAllTextes();
+            // if (Array.isArray(response.data)) {
+            //     const totalTextes = response.data.length;
+            //     const totalPages = Math.ceil(totalTextes / articlesPerPage);
+            //     setNb(totalPages);
+            //     const startIndex = (currentPage - 1) * articlesPerPage;
+            //     const endIndex = startIndex + articlesPerPage;
+            //     const texteToShow = response.data.slice(startIndex, endIndex);
+            //     setTextes(texteToShow);
+            // } else {
+            //     console.error("La réponse ne contient pas de tableau d'articles.");
+            // } 
+            setTextes(response.data)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const findImages = async() => {
+        try {
+            const response = await getAllImages();
+            // if (Array.isArray(response.data)) {
+            //     const totalTextes = response.data.length;
+            //     const totalPages = Math.ceil(totalTextes / articlesPerPage);
+            //     setNb(totalPages);
+            //     const startIndex = (currentPage - 1) * articlesPerPage;
+            //     const endIndex = startIndex + articlesPerPage;
+            //     const texteToShow = response.data.slice(startIndex, endIndex);
+            //     setTextes(texteToShow);
+            // } else {
+            //     console.error("La réponse ne contient pas de tableau d'articles.");
+            // } 
+            console.log(response)
+            setImages(response.data)
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const findArticles = async () => {
         
@@ -119,19 +201,23 @@ function Admin(){
         <>
         <div onClick={handleOutsideClick}>
         {articleModalOpen && articleModalMode === "add" && createPortal(<AjoutArticle onClose={() => setArticleModalOpen(false)} buttonValue={"AJOUTER"} title="Connexion" mode={articleModalMode} addNewArticle={addNewArticle}></AjoutArticle>, document.getElementById("modal-root"))}
+
         {articleModalOpen && articleModalMode === "edit" && createPortal(<AjoutArticle onClose={() => setArticleModalOpen(false)} buttonValue={"MODIFIER"} title="Connexion" mode={articleModalMode} selectedArticle={selectedArticle} updateExistingArticle={updateExistingArticle} ></AjoutArticle>, document.getElementById("modal-root"))}
+
+        {texteModalOpen && createPortal(<AjoutTexte onClose={() => setTexteModalOpen(false)} buttonValue={"MODIFIER"} title="Connexion" selectedTexte={selectedTexte} updateExistingTexte={updateExistingTexte}></AjoutTexte>, document.getElementById("modal-root"))}
+        
         <Header/>
             <div className="administration">
                 <div className="administration_titre">
                     <h1>Administration</h1>
                 </div>
                 <SousTitre titre="Admin" texte="Liste de tout les articles"/>
-                <div className="tableau">
+                <div className="tableau" id="article-tableau">
                     <div className="recherche">
                         <button onClick={onArticleHandler} >Ajouter</button>
                         <input type="text" placeholder="🔎 Rechercher"/>
                     </div>
-                    <div className="table-responsive">
+                    <div className="table-responsive ">
                     <table className="table">
                         <thead>
                             <tr>
@@ -167,6 +253,7 @@ function Admin(){
                         </tbody>
                     </table>
                     </div>
+                    
                     <div className="pagination">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
@@ -194,19 +281,76 @@ function Admin(){
                             </ul>
                         </nav>
                     </div>
+                    
                 </div>
+                <div className="tableau" id="texte-tableau">
+                <div className="table-responsive">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                            <th scope="col-5">Contenu</th>
+                            <th scope="col-2">Position</th>
+                            <th scope="col-3">Page</th>
+                            <th scope="col-2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody className="table-striped">
+                            {
+                                textes.map(texte =>
+                                    <tr key={texte.id}>
+                                        <td scope="col-5 row" className="texte_cut">{texte.contenu}</td>
+                                        <td scope="col-2 row">{texte.position}</td>
+                                        <td scope="col-2 row">{texte.page}</td>
+                                        <td scope="col-2 row"><button  className="ms-2 btn btn-warning" onClick={()=>onUpdateTextHandler(texte)}><i className="bi bi-trash"></i> Modifier</button></td>
+                                    </tr>
+                                    )
+                            }
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+
+                <div className="tableau" id="image-tableau">
+                <div className="table-responsive">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                            <th scope="col-5">Contenu</th>
+                            <th scope="col-2">Position</th>
+                            <th scope="col-3">Page</th>
+                            <th scope="col-2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody className="table-striped">
+                            {
+                                images.map(image =>
+                                    <tr key={image.id}>
+                                        <td scope="col-5 row" className="texte_cut">{image.filename}</td>
+                                        <td scope="col-2 row">{image.position}</td>
+                                        <td scope="col-2 row">{image.page}</td>
+                                        <td scope="col-2 row"><button  className="ms-2 btn btn-warning" onClick={()=>onUpdateTextHandler(image)}><i className="bi bi-trash"></i> Modifier</button></td>
+                                    </tr>
+                                    )
+                            }
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                  
+                  
+                
                 <div className="adminstration_input">
-                    <div>
+                    <div onClick={()=>setFormMode(1)}>
                         <p>
                             Articles
                         </p>
                     </div>
-                    <div>
+                    <div onClick={()=>setFormMode(2)}>
                         <p>
                             Textes
                         </p>
                     </div>
-                    <div>
+                    <div onClick={()=>setFormMode(3)}>
                         <p>
                             Images
                         </p>
