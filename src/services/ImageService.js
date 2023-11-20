@@ -15,9 +15,11 @@ axios.interceptors.request.use(function (config) {
 
 export const getAllImages = () => axios.get(TEXTE_REST_API_BASE_URL)
 
-export const saveImage = (image) => axios.post(TEXTE_REST_API_BASE_URL, image)
+export const saveImage = (file,position,page) => axios.post(TEXTE_REST_API_BASE_URL, file,position,page)
 
 export const getImage = (id) => axios.get(TEXTE_REST_API_BASE_URL + "/" + id)
+
+export const getImageByName = (name) => axios.get(TEXTE_REST_API_BASE_URL + "/" + name)
 
 export const getImageByPage = (page) => axios.get(TEXTE_REST_API_BASE_URL + "/page/" + page)
 

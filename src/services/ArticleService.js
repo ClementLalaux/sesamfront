@@ -33,3 +33,5 @@ export const getImagesByArticleId = (id) => axios.get(AUTH_REST_API_BASE_URL + '
 export const getFileByName = (fileName) => axios.get(AUTH_REST_API_BASE_URL + '/files/get/files' + '/' + fileName)
 
 export const getImageByName = (imageName) => axios.get(AUTH_REST_API_BASE_URL + '/files/get/image' + '/' + imageName)
+
+export const updateFile = (id,file) => axios.get(AUTH_REST_API_BASE_URL + '/updateFile/' + id , file)

@@ -13,6 +13,7 @@ import { selectId } from "./authSlice";
 import { useSelector } from "react-redux";
 import AjoutTexte from "../shared/AjoutTexte";
 import { getAllImages } from "../services/ImageService";
+import AjoutImage from "../shared/AjoutImage";
 
 function Admin(){
 
@@ -20,9 +21,11 @@ function Admin(){
 
     const [articleModalOpen, setArticleModalOpen] = useState(false);
     const [texteModalOpen, setTexteModalOpen] = useState(false);
+    const [imageModalOpen, setImageModalOpen] = useState(false);
     const [articleModalMode, setArticleModalMode] = useState("");
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [selectedTexte, setSelectedTexte] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
     const utilisateurId = useSelector(selectId);
     const [newArticleAdded, setNewArticleAdded] = useState(false);
 
@@ -52,6 +55,14 @@ function Admin(){
         setNewArticleAdded(true);
       };
 
+      const updateExistingImage = (imageId, updatedImage) => {
+        const updatedImages = images.map((image) =>
+        image.id === imageId ? updatedImage : image
+        );
+        setImages(updatedImages);
+        setNewArticleAdded(true);
+      };
+
     const onUpdateHandler = async (article) => {
         setArticleModalOpen(true);
         setArticleModalMode("edit");
@@ -61,6 +72,11 @@ function Admin(){
     const onUpdateTextHandler = async (article) => {
         setSelectedTexte(article);
         setTexteModalOpen(true);
+    }
+
+    const onUpdateImageHandler = async (article) => {
+        setSelectedImage(article);
+        setImageModalOpen(true);
     }
 
     const closeModal = () => {
@@ -178,6 +194,17 @@ function Admin(){
 
               })
             );
+
+            const getImages = await Promise.all(
+                articlesToShow.map(async (article) => {
+                  const filesResponse = await getFilesByArticleId(article.id);
+                  article.files = filesResponse.data;
+                  console.log(article)
+                  return article;
+  
+                })
+              );
+
             const getUtilisateur = await Promise.all(
                 articlesToShow.map(async (article) => {
                   const filesResponse = await getUser(article.utilisateurId);
@@ -186,7 +213,9 @@ function Admin(){
                 })
               );
             setArticles(updatedArticles);
+            setArticles(getImages);
             setArticles(getUtilisateur);
+            console.log(articles);
           } else {
             console.error("La réponse ne contient pas de tableau d'articles.");
           }
@@ -194,6 +223,8 @@ function Admin(){
           console.error(error);
         }
       };
+
+      
 
       
 
@@ -205,6 +236,8 @@ function Admin(){
         {articleModalOpen && articleModalMode === "edit" && createPortal(<AjoutArticle onClose={() => setArticleModalOpen(false)} buttonValue={"MODIFIER"} title="Connexion" mode={articleModalMode} selectedArticle={selectedArticle} updateExistingArticle={updateExistingArticle} ></AjoutArticle>, document.getElementById("modal-root"))}
 
         {texteModalOpen && createPortal(<AjoutTexte onClose={() => setTexteModalOpen(false)} buttonValue={"MODIFIER"} title="Connexion" selectedTexte={selectedTexte} updateExistingTexte={updateExistingTexte}></AjoutTexte>, document.getElementById("modal-root"))}
+
+        {imageModalOpen && createPortal(<AjoutImage onClose={() => setImageModalOpen(false)} buttonValue={"MODIFIER"} title="Connexion" selectedImage={selectedImage} updateExistingImage={updateExistingImage}></AjoutImage>, document.getElementById("modal-root"))}
         
         <Header/>
             <div className="administration">
@@ -224,9 +257,10 @@ function Admin(){
                             <th scope="col-1"><input type="checkbox"/></th>
                             <th scope="col-4">Titre</th>
                             <th scope="col-1">Statut</th>
-                            <th scope="col-3">Auteur</th>
+                            <th scope="col-1">Auteur</th>
                             <th scope="col-2">Date</th>
                             <th scope="col-2">Image</th>
+                            <th scope="col-2">Fichiers</th>
                             <th scope="col-1">Action</th>
                             </tr>
                         </thead>
@@ -244,7 +278,14 @@ function Admin(){
                                             ? article.fichiers[0].filename.lastIndexOf("_") !== -1
                                             ? article.fichiers[0].filename.slice(article.fichiers[0].filename.lastIndexOf("_") + 1)
                                             : article.fichiers[0].filename
-                                            : "No files"}
+                                            : "Pas d'image"}
+                                        </td>
+                                        <td>
+                                            {
+                                            article.files && article.files.length > 0 ? (
+                                                article.files.map(file => <p key={file.id}>{file.filename.slice(file.filename.lastIndexOf("_")+1)}</p>)
+                                            ) : (<span>Pas de fichiers</span>)
+                                            }
                                         </td>
                                         <td scope="col-1 row"><button onClick={() => onDeleteHandler(article.id)} className="ms-2 btn btn-danger"><i className="bi bi-trash"></i> Delete</button><button onClick={()=>onUpdateHandler(article)} className="ms-2 btn btn-warning"><i className="bi bi-trash"></i> Modifier</button></td>
                                     </tr>
@@ -328,7 +369,7 @@ function Admin(){
                                         <td scope="col-5 row" className="texte_cut">{image.filename}</td>
                                         <td scope="col-2 row">{image.position}</td>
                                         <td scope="col-2 row">{image.page}</td>
-                                        <td scope="col-2 row"><button  className="ms-2 btn btn-warning" onClick={()=>onUpdateTextHandler(image)}><i className="bi bi-trash"></i> Modifier</button></td>
+                                        <td scope="col-2 row"><button  className="ms-2 btn btn-warning" onClick={()=>onUpdateImageHandler(image)}><i className="bi bi-trash"></i> Modifier</button></td>
                                     </tr>
                                     )
                             }

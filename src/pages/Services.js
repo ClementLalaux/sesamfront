@@ -6,12 +6,14 @@ import SousTitre from "../partials/SousTitre";
 import React, { useEffect, useState } from "react";
 import Modal from "../partials/Modal";
 import { getTexteByPage } from "../services/TexteService";
+import { getImageByPage } from "../services/ImageService";
 
 function Services(){
 
     const pageActive = 'services';
 
     const [textes , setTextes] = useState([]);
+    
 
     const findTextes = async () => {
         try {
@@ -37,8 +39,20 @@ function Services(){
         return textWithBreaks;
     };
 
+    const [images,setImages] = useState([]);
+    const afficherImage = async () => {
+        try{
+          const image = await getImageByPage(pageActive);
+          console.log(image.data);
+          setImages(image.data);
+        }catch (error) {
+          console.error(error);
+        }
+      }
+
     useEffect(() => {
         findTextes();
+        afficherImage();
         console.log(textes)
     }, []);
 
@@ -56,7 +70,11 @@ function Services(){
                 <div className="service_col">
                     <div className="service_img">
                         <div>
-                            <img src={article}/>
+                            {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[0].filename}/> ) : <span></span>
+                            }
+                            
                         </div>
                         
                     </div>
@@ -81,7 +99,10 @@ function Services(){
                         </div>
                         <div className="service_img">
                             <div>
-                                <img src={article}/>
+                            {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[1].filename}/> ) : <span></span>
+                            }
                             </div>
                         </div>
                 </div>
@@ -89,7 +110,10 @@ function Services(){
                 <div className="service_col">
                     <div className="service_img">
                         <div>
-                            <img src={article}/>
+                        {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[2].filename}/> ) : <span></span>
+                            }
                         </div>
                     </div>
                     <div className="service_text">

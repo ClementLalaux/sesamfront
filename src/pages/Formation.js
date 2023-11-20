@@ -6,11 +6,13 @@ import article from "../assets/img/article1.jpg";
 import Footer from "../partials/Footer";
 import { useEffect, useState } from "react";
 import { getTexteByPage } from "../services/TexteService";
+import { getImageByPage } from "../services/ImageService";
 
 function Formation(){
 
     const pageActive = 'formation';
     const [textes , setTextes] = useState([]);
+    const [images,setImages] = useState([]);
 
     const findTextes = async () => {
         try {
@@ -21,6 +23,16 @@ function Formation(){
           console.error(error);
         }
     }
+
+    const afficherImage = async () => {
+        try{
+          const image = await getImageByPage(pageActive);
+          console.log(image.data);
+          setImages(image.data);
+        }catch (error) {
+          console.error(error);
+        }
+      }
 
     const renderTextWithLineBreaks = (text) => {
         if (typeof text !== 'string' || text === undefined) {
@@ -38,6 +50,7 @@ function Formation(){
 
     useEffect(() => {
         findTextes();
+        afficherImage();
         console.log(textes)
     }, []);
 
@@ -53,7 +66,10 @@ function Formation(){
                 <div className="service_col">
                     <div className="service_img">
                         <div>
-                            <img src={article}/>
+                        {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[0].filename}/> ) : <span></span>
+                            }
                         </div>
                         
                     </div>
@@ -75,7 +91,10 @@ function Formation(){
                         </div>
                         <div className="service_img">
                             <div>
-                                <img src={article}/>
+                            {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[1].filename}/> ) : <span></span>
+                            }
                             </div>
                         </div>
                 </div>
@@ -83,7 +102,10 @@ function Formation(){
                 <div className="service_col">
                     <div className="service_img">
                         <div>
-                            <img src={article}/>
+                        {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[2].filename}/> ) : <span></span>
+                            }
                         </div>
                     </div>
                     <div className="service_text">
@@ -103,7 +125,10 @@ function Formation(){
                         </div>
                         <div className="service_img">
                             <div>
-                                <img src={article}/>
+                            {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[3].filename}/> ) : <span></span>
+                            }
                             </div>
                         </div>
                 </div>
@@ -111,7 +136,10 @@ function Formation(){
                 <div className="service_col">
                     <div className="service_img">
                         <div>
-                            <img src={article}/>
+                        {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[4].filename}/> ) : <span></span>
+                            }
                         </div>
                     </div>
                     <div className="service_text">
@@ -132,7 +160,10 @@ function Formation(){
                         </div>
                         <div className="service_img">
                             <div>
-                                <img src={article}/>
+                            {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[5].filename}/> ) : <span></span>
+                            }
                             </div>
                         </div>
                 </div>

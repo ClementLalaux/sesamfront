@@ -2,7 +2,7 @@ import "../assets/style/ajoutarticle.css";
 import React, { useRef } from "react";
 import {  useSelector } from "react-redux";
 import { selectId } from "../pages/authSlice";
-import { addFileToArticle, saveArticle, updateArticle } from "../services/ArticleService";
+import { addFileToArticle, saveArticle, updateArticle, updateFile } from "../services/ArticleService";
 import { getUser } from "../services/AuthService";
 
 function AjoutArticle(props){
@@ -28,14 +28,25 @@ function AjoutArticle(props){
         const contenu = contenuRef.current.value;
         const publication = publicationRef.current.value;
         const statut = statutRef.current.checked;
+
         const test = {titre,contenu,publication,statut,utilisateurId}
         
         if(mode === 'edit'){
             await updateArticle(props.selectedArticle.id,test).then(async (response)=> {
-                console.log(response);
                 const filesResponse = await getUser(test.utilisateurId);
                 test.utilisateur = filesResponse.data;
                 test.id = props.selectedArticle.id;
+
+                const formData = new FormData();
+                if(fichierRef.current.files.length != 0){
+                    const filesArray = Array.from(fichierRef.current.files);
+                    for (const fichier of filesArray) {
+                        formData.set("file", fichier);
+                        await updateFile(props.selectedArticle.id, formData);
+                    }
+                }
+                test.fichiers = props.selectedArticle.fichiers;
+                test.files = props.selectedArticle.files;
                 console.log(test);
                 props.updateExistingArticle(props.selectedArticle.id, test);
             }).catch(error => {

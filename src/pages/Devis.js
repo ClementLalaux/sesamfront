@@ -8,6 +8,7 @@ import Carrousel from "../partials/Carrousel";
 import Modal from "../partials/Modal";
 import { useEffect, useState } from "react";
 import { getTexteByPage } from "../services/TexteService";
+import { getImageByPage } from "../services/ImageService";
 
 function Devis(){
 
@@ -39,8 +40,20 @@ function Devis(){
         return textWithBreaks;
     };
 
+    const [images,setImages] = useState([]);
+    const afficherImage = async () => {
+        try{
+          const image = await getImageByPage(pageActive);
+          console.log(image.data);
+          setImages(image.data);
+        }catch (error) {
+          console.error(error);
+        }
+      }
+
     useEffect(() => {
         findTextes();
+        afficherImage();
         console.log(textes)
     }, []);
 
@@ -56,7 +69,10 @@ function Devis(){
                 <div className="service_col">
                     <div className="service_img">
                         <div>
-                            <img src={article}/>
+                            {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[0].filename}/> ) : <span></span>
+                            }
                         </div>
                         
                     </div>
@@ -78,7 +94,10 @@ function Devis(){
                 <div className="service_col">
                     <div className="service_img">
                         <div>
-                            <img src={service}/>
+                            {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[1].filename}/> ) : <span></span>
+                            }
                         </div>
                         
                     </div>

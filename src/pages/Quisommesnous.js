@@ -8,6 +8,7 @@ import Footer from '../partials/Footer';
 import React, { useEffect, useState } from 'react';
 import Modal from '../partials/Modal';
 import { getTexteByPage } from '../services/TexteService';
+import { getImageByPage } from '../services/ImageService';
 
 function Quisommmesnous(){
 
@@ -39,8 +40,20 @@ function Quisommmesnous(){
         return textWithBreaks;
     };
 
+    const [images,setImages] = useState([]);
+    const afficherImage = async () => {
+        try{
+          const image = await getImageByPage(pageActive);
+          console.log(image.data);
+          setImages(image.data);
+        }catch (error) {
+          console.error(error);
+        }
+      }
+
     useEffect(() => {
         findTextes();
+        afficherImage();
         console.log(textes)
     }, []);
 
@@ -55,7 +68,10 @@ function Quisommmesnous(){
         <div className="quisommesnous_description">
             <div>
                 <div className="quisommesnous_img">
-                    <img src={portrait}/>
+                    {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[0].filename}/> ) : <span></span>
+                    }
                 </div>
                 
             </div>
@@ -90,7 +106,10 @@ function Quisommmesnous(){
         <div className="quisommesnous_services">
             <div className="quisommesnous_service">
                 <div className="quisommesnous_service_image">
-                    <img src={service}/>
+                {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[1].filename}/> ) : <span></span>
+                            }
                 </div>
                 <div className="quisommesnous_service_text">
                     <h5>Dans nos <span>bureaux</span></h5>
@@ -99,7 +118,10 @@ function Quisommmesnous(){
             </div>
             <div className="quisommesnous_service">
                 <div className="quisommesnous_service_image">
-                    <img src={service}/>
+                {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[2].filename}/> ) : <span></span>
+                            }
                 </div>
                 <div className="quisommesnous_service_text">
                     <h5>Déplacement chez le <span>client</span></h5>
@@ -108,7 +130,10 @@ function Quisommmesnous(){
             </div>
             <div className="quisommesnous_service">
                 <div className="quisommesnous_service_image">
-                    <img src={service}/>
+                {
+                                images && images.length > 0 ? (
+                                    <img src={"http://localhost:8085/api/image/find/" + images[3].filename}/> ) : <span></span>
+                            }
                 </div>
                 <div className="quisommesnous_service_text">
                     <h5>Des services en <span>distanciel</span></h5>
