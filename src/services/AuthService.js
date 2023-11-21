@@ -18,6 +18,10 @@ export const getUser = (id) => axios.get(AUTH_REST_API_BASE_URL + '/' + id)
 
 export const saveLoggedInUser = (username) => sessionStorage.setItem("authenticatedUser", username);
 
+export const oubliePassword = (email) => axios.post(process.env.REACT_APP_AUTH_API_ADDRESS + '/reinitialise/reset-password-request', email);
+
+export const resetPassword = (newPassword, token) => axios.post(process.env.REACT_APP_AUTH_API_ADDRESS + '/reinitialise/update/' + token, newPassword);
+
 export const isUserLoggedIn = () => {
 
     const username = sessionStorage.getItem("authenticatedUser");

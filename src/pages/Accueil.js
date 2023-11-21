@@ -3,13 +3,26 @@ import Footer from '../partials/Footer';
 import Header from '../partials/Header';
 import accueil from '../assets/img/accueil.jpg';
 import { getImage, getImageByPage } from '../services/ImageService';
+import { createPortal } from 'react-dom';
+import Reset from '../shared/Reset';
+import { useParams } from 'react-router-dom';
 
 
 function Accueil(props) {
 
   const pageActive = 'accueil';
 
+  const { token } = useParams("token");
+  const params = token || "";
+
+
+  const [resetModalOpen, setResetModalOpen] = useState(false);
+
   const [images,setImages] = useState([]);
+
+  const onResetHandler =  () => {
+    setResetModalOpen(true); 
+}
 
   const afficherImage = async () => {
     try{
@@ -23,10 +36,15 @@ function Accueil(props) {
 
   useEffect(()=>{
     afficherImage();
-},[])
+    if(params !== ""){
+      onResetHandler();
+      console.log(params);
+    }
+},[params])
 
   return (
     <>
+    {resetModalOpen && createPortal(<Reset  onClose={() => setResetModalOpen(false)} title="Reset mot de passe" token={params}></Reset>, document.getElementById("modal-root"))}
           <Header pageActive={pageActive} />
           <div className="accueil">
             {

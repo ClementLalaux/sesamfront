@@ -4,6 +4,7 @@ import Inscription from "../shared/Inscription";
 import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "../pages/authSlice";
+import Oublie from "../shared/Oublie";
 
 
 function Modal(props){
@@ -13,15 +14,21 @@ function Modal(props){
 
     const [signFormMode, setSignFormMode] = useState("");
     const [loginModalOpen, setLoginModalOpen] = useState(false);
+
+    const [oublieModalOpen, setOublieModalOpen] = useState(false);
     
 
-    const onSigningHandler = async () => {
+    const onSigningHandler =  () => {
         setSignFormMode("inscription");
     };
 
 
-    const onLoginHandler = async () => {
+    const onLoginHandler =  () => {
         setLoginModalOpen(true); 
+    }
+
+    const onOublieHandler =  () => {
+        setOublieModalOpen(true); 
     }
 
     const closeModal = () => {
@@ -53,8 +60,9 @@ function Modal(props){
                     ) : null}
                     
                 </div>
-                {signFormMode && createPortal(<Inscription onClose={() => setSignFormMode("")} title="Inscription"></Inscription>, document.getElementById("modal-root"))}
-                {loginModalOpen && createPortal(<Connexion onClose={() => setLoginModalOpen(false)} title="Connexion"></Connexion>, document.getElementById("modal-root"))}
+                {signFormMode && createPortal(<Inscription  onClose={() => setSignFormMode("")} title="Inscription" ></Inscription>, document.getElementById("modal-root"))}
+                {loginModalOpen && createPortal(<Connexion onSigningHandler={onSigningHandler} onOublieHandler={onOublieHandler} onClose={() => setLoginModalOpen(false)} title="Connexion"></Connexion>, document.getElementById("modal-root"))}
+                {oublieModalOpen && createPortal(<Oublie  onClose={() => setOublieModalOpen(false)} title="Mot de passe oublié"></Oublie>, document.getElementById("modal-root"))}
             </div>
         </>
     )

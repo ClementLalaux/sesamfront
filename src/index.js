@@ -53,6 +53,10 @@ const router = createBrowserRouter([
     element: <Accueil />
   },
   {
+    path: '/:token',
+    element: <Accueil />
+  },
+  {
     path: '/contact',
     element: <PrivateRoute component={Contact} />
   },

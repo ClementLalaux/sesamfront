@@ -20,6 +20,18 @@ function Connexion(props){
 
     const navigator = useNavigate();
 
+    const inscriptionHandler = () => {
+        props.onClose();
+        props.onSigningHandler();
+    }
+
+    const oublieHandler = () => {
+        props.onClose();
+        props.onOublieHandler();
+    }
+
+    console.log(props);
+
     useEffect(() => {
         if(isAuth){
             props.onClose();
@@ -47,6 +59,7 @@ function Connexion(props){
           })
   
       }
+
       
     return(
         <div onClick={backgroundClickHandler} className="test_modal">
@@ -62,7 +75,10 @@ function Connexion(props){
                         <input type="password" name="password" placeholder="Mot de passe*" value={password} onChange={ (e) => setPassword(e.target.value)}/>
                     </div>                     
                     <input type="submit" className="btn_connexion" value="CONNEXION" onClick={ (e) => handleLoginForm(e)}/>
-                    <input type="submit" className="btn_inscription" value="Pas encore inscrit ? Créer un compte"/>
+                    <input type="button" className="btn_connexion" value="Mot de passe oublié" onClick={oublieHandler}/>
+                    <input type="button" className="btn_inscription" value="Pas encore inscrit ? Créer un compte" onClick={inscriptionHandler}/>
+                    
+
                 </form>
             </div>
         </div>
